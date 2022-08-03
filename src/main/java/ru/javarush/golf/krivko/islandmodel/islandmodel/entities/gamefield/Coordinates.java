@@ -1,10 +1,10 @@
 package ru.javarush.golf.krivko.islandmodel.islandmodel.entities.gamefield;
 
-public class Coordinate {
-    private final int y;
-    private final int x;
-    
-    public Coordinate(int y, int x) {
+public class Coordinates {
+    private int y;
+    private int x;
+
+    public Coordinates(int y, int x) {
         this.y = y;
         this.x = x;
     }
