@@ -23,6 +23,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "[" + coordinates.getY() + ":" + coordinates.getX() +  "]";
+        return "[" + "]";
     }
 }

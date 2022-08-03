@@ -1,13 +1,13 @@
 package ru.javarush.golf.krivko.islandmodel.islandmodel.entities.gamefield;
 
-import ru.javarush.golf.krivko.islandmodel.islandmodel.constants.Constants;
+import ru.javarush.golf.krivko.islandmodel.islandmodel.constants.Configuration;
 
 public class GameField {
 
     private final Location[][] island;
 
     public GameField() {
-        this.island = new Location[Constants.MAX_X_GAME_FIELD][Constants.MAX_Y_GAME_FIELD];
+        this.island = new Location[Configuration.SIZE_X_GAME_FIELD][Configuration.SIZE_Y_GAME_FIELD];
         init();
     }
 
