@@ -5,4 +5,6 @@ import ru.javarush.golf.krivko.islandmodel.islandmodel.entities.gamefield.Coordi
 public abstract class Animal {
     protected Coordinates coordinates;
 
+    protected abstract void move();
+
 }

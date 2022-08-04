@@ -7,4 +7,9 @@ public class Bear extends Animal {
     public Bear(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
+
+    @Override
+    protected void move() {
+//        System.out.println("The bear went.");
+    }
 }

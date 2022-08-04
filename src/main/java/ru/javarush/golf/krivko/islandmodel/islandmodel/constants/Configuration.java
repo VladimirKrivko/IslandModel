@@ -12,6 +12,14 @@ public class Configuration {
     public static final int SIZE_Y_GAME_FIELD = 5;
     public static final int SIZE_X_GAME_FIELD = 10;
 
+    public static final int MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
+
+    public static final int GRASS_WEIGHT = 1;
+
+    public static final int MAX_NUMBER_OF_WOLFS_PER_LOCATION = 200;
+
+    public static final int MAX_NUMBER_OF_STEPS_WOLF = 3;
+
     private Configuration(){
         throw new IllegalStateException("Configuration class");
     }
