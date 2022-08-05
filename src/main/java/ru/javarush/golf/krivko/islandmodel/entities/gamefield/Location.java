@@ -16,13 +16,8 @@ public class Location {
     private final int yPosition;
 
     private int grass;
-    private final Map<Class, Set<Animal<?>>> animals = new HashMap<>();
 
-    private void initializeAnimalSet() {
-        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
-            animals.put(classAnimal, new HashSet<>());
-        }
-    }
+    private final Map<Class<?>, Set<Animal<?>>> animals = new HashMap<>();
 
     public Location(int y, int x) {
         this.yPosition = y;
@@ -31,9 +26,29 @@ public class Location {
         generationLife();
     }
 
+    private void initializeAnimalSet() {
+        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
+            animals.put(classAnimal, new HashSet<>());
+        }
+    }
+
+    public int getPositionX() {
+        return xPosition;
+    }
+
+    public int getPositionY() {
+        return yPosition;
+    }
+
     private void generationLife() {
         generationPlants();
         generationAnimals();
+    }
+
+    private void generationPlants() {
+        if (isCreateAnimalType()) {
+            this.grass = ThreadLocalRandom.current().nextInt(0, Configuration.GRASS_WEIGHT);
+        }
     }
 
     private void generationAnimals() {  //Сделать уникальность создаваемых животных?
@@ -51,10 +66,17 @@ public class Location {
         }
     }
 
+    public void removeAnimalFromLocation(Animal<?> animal) {
+        //реализация удаления животного
+    }
+
+    public void addAnimalToLocation(Animal<?> animal) {
+        //реализация добавления животного
+    }
+
     private boolean isCreateAnimalType() {
         return ThreadLocalRandom.current().nextBoolean();
     }
-
 
     private <T> T tryCreateAnimal(Class<T> clazz) {
         try {
@@ -69,25 +91,6 @@ public class Location {
             throw new RuntimeException(e);
         }
     }
-
-//    private int getNewPositionY(Animal animal) {
-//        int yMin = Math.max(this.yPosition - animal.maxNumberOfStepsAnimal, 0);
-//        int yMax = Math.min(this.yPosition + animal.maxNumberOfStepsAnimal, Configuration.SIZE_Y_GAME_FIELD);
-//        return ThreadLocalRandom.current().nextInt(yMin, yMax);
-//    }
-//
-//    private int getNewPositionX(Animal animal) {
-//        int xMin = Math.max(this.xPosition - animal.maxNumberOfStepsAnimal, 0);
-//        int xMax = Math.min(this.xPosition + animal.maxNumberOfStepsAnimal, Configuration.SIZE_X_GAME_FIELD);
-//        return ThreadLocalRandom.current().nextInt(xMin, xMax);
-//    }
-
-    private void generationPlants() {
-        if (isCreateAnimalType()) {
-            this.grass = ThreadLocalRandom.current().nextInt(0, Configuration.GRASS_WEIGHT);
-        }
-    }
-
 
     @Override
     public String toString() {

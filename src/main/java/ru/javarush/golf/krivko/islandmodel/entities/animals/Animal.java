@@ -1,21 +1,19 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
+import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.entities.gamefield.GameField;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class Animal<T> {
+public abstract class Animal<T> implements Movable {
 
     protected Class<T> clazz;
 
 //    private int weight;
-    private static int maxCountOfAnimalInTheLocation; //Нужна ли? усть же статическая коллекция MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.
-//    private int maxNumberOfStepsAnimal;
 //    private int amountOfFoodToSatiate;
 
-//    public Animal(Class<T> clazz) {
-//        this.clazz = clazz;
-//    }
 
     public T tryCreateAnimal() {
         try {
@@ -36,23 +34,25 @@ public abstract class Animal<T> {
 
 
     public void move(Location location){
+        Location newLocation = choiceOfAvailableLocation(location);
+//        location.найти животное и удалить из списка локации;
+//        newLocation.поместить животное в список совего типа новой локации;
+    }
 
+    public int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?
+        return Configuration.MAX_NUMBER_OF_ANIMAL_STEPS.get(clazz);
+    }
+
+    protected Location choiceOfAvailableLocation(Location location){
+        int yMin = Math.max(location.getPositionY() - getMaxNumberOfStepsAnimal(), 0);
+        int yMax = Math.min(location.getPositionY() + getMaxNumberOfStepsAnimal(), Configuration.SIZE_Y_GAME_FIELD);
+        int xMin = Math.max(location.getPositionX() - getMaxNumberOfStepsAnimal(), 0);
+        int xMax = Math.min(location.getPositionX() + getMaxNumberOfStepsAnimal(), Configuration.SIZE_X_GAME_FIELD);
+
+        int coordinateY = ThreadLocalRandom.current().nextInt(yMin, yMax);
+        int coordinateX = ThreadLocalRandom.current().nextInt(xMin, xMax);
+
+        return GameField.getLocation(coordinateY, coordinateX);
     }
 
 }
-
-
-
-
-//    protected void choiceOfAvailableLocation(){
-//        int yMin = Math.max(this.coordinates.getY() - MAX_NUMBER_OF_STEPS_ANIMAL, 0);
-//        int yMax = Math.min(this.coordinates.getY() + MAX_NUMBER_OF_STEPS_ANIMAL, Configuration.SIZE_Y_GAME_FIELD);
-//        int xMin = Math.max(this.coordinates.getX() - MAX_NUMBER_OF_STEPS_ANIMAL, 0);
-//        int xMax = Math.min(this.coordinates.getX() + MAX_NUMBER_OF_STEPS_ANIMAL, Configuration.SIZE_X_GAME_FIELD);
-//
-//        int coordinateY = random.nextInt(yMin, yMax);
-//        int coordinateX = random.nextInt(xMin, xMax);
-//
-//        this.coordinates.setY(coordinateY);
-//        this.coordinates.setX(coordinateX);
-//    }
