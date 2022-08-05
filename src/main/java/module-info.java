@@ -11,6 +11,6 @@ module ru.javarush.golf.krivko.islandmodel.islandmodel {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens ru.javarush.golf.krivko.islandmodel.islandmodel to javafx.fxml;
-    exports ru.javarush.golf.krivko.islandmodel.islandmodel;
+    opens ru.javarush.golf.krivko.islandmodel to javafx.fxml;
+    exports ru.javarush.golf.krivko.islandmodel;
 }

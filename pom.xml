@@ -129,7 +129,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                ru.javarush.golf.krivko.islandmodel.islandmodel/ru.javarush.golf.krivko.islandmodel.islandmodel.HelloApplication
+                                ru.javarush.golf.krivko.islandmodel.islandmodel/ru.javarush.golf.krivko.islandmodel.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

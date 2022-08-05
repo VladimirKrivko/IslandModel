@@ -37,4 +37,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/src/main/java/ru/javarush/golf/krivko/islandmodel/islandmodel/entities/TestRun.java
+/src/main/java/ru/javarush/golf/krivko/islandmodel/entities/TestRun.java
