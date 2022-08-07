@@ -2,6 +2,7 @@ package ru.javarush.golf.krivko.islandmodel.entities.gamefield;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Rabbit;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
 
 import java.lang.reflect.InvocationTargetException;
@@ -63,6 +64,9 @@ public class Location {
                     if (o instanceof Wolf) {
                         animals.get(classAnimal).add((Wolf) o);
                     }
+                    if (o instanceof Rabbit) {
+                        animals.get(classAnimal).add((Rabbit) o);
+                    }
                 }
             }
         }
@@ -113,6 +117,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "[" + "\uD83D\uDC3A:" + animals.get(Wolf.class).size() + "\uD83C\uDF3F:" + grass + "]";
+        return "[" + "\uD83D\uDC3A:" + animals.get(Wolf.class).size() + "\uD83D\uDC07:" + animals.get(Rabbit.class).size() + "\uD83C\uDF3F:" + grass + "]";
     }
 }

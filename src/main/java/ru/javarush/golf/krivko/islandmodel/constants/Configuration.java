@@ -24,7 +24,7 @@ public class Configuration {
     /*Для изображения животных можно использовать юникод символы: 🐃, 🐻, 🐎, 🦌, 🐗, 🐑, 🐐, 🐺, 🐍, 🦊, 🦅, 🐇, 🦆, 🐁, 🐛, 🌿 */
 
     public static final Set<Class<?>> CLASS_ANIMALS = Set.of(/*Bear.class, Boa.class, Boar.class, Buffalo.class, Deer.class,
-            Fox.class, Goat.class, Horse.class, Mouse.class, Rabbit.class, Sheep.class,*/ Wolf.class/*, Caterpillar.class,
+            Fox.class, Goat.class, Horse.class, Mouse.class,*/ Rabbit.class, /* Sheep.class,*/ Wolf.class/*, Caterpillar.class,
             Duck.class, Eagle.class*/);
 
     public static final Map<String, Class<?>> NAME_CLASSES = new HashMap<>();
@@ -82,7 +82,7 @@ public class Configuration {
 //        MAX_NUMBER_OF_ANIMAL_STEPS.put(Goat.class, 3);
 //        MAX_NUMBER_OF_ANIMAL_STEPS.put(Horse.class, 4);
 //        MAX_NUMBER_OF_ANIMAL_STEPS.put(Mouse.class, 1);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Rabbit.class, 2);
+        MAX_NUMBER_OF_ANIMAL_STEPS.put(Rabbit.class, 2);
 //        MAX_NUMBER_OF_ANIMAL_STEPS.put(Sheep.class, 3);
         MAX_NUMBER_OF_ANIMAL_STEPS.put(Wolf.class, 3);
 //        MAX_NUMBER_OF_ANIMAL_STEPS.put(Duck.class, 4);
