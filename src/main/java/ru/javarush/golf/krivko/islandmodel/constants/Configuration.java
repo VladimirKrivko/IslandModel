@@ -13,9 +13,8 @@ public class Configuration {
     public static final int SIZE_Y_GAME_FIELD = 5;
     public static final int SIZE_X_GAME_FIELD = 10;
 
-//    public static final int MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
-
-    public static final int GRASS_WEIGHT = 200; //1
+    public static final int GRASS_WEIGHT = 200; // Если делать без создания объектов травы, то double!
+    //    public static final int MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
 
     private Configuration(){
         throw new IllegalStateException("Configuration class");
@@ -27,70 +26,27 @@ public class Configuration {
             Fox.class, Goat.class, Horse.class, Mouse.class,*/ Rabbit.class, /* Sheep.class,*/ Wolf.class/*, Caterpillar.class,
             Duck.class, Eagle.class*/);
 
-    public static final Map<String, Class<?>> NAME_CLASSES = new HashMap<>();
+    public static final Map<Class<?>, double[]> CONFIGURATIONS_ANIMALS = new HashMap<>();
 
     static {
-        NAME_CLASSES.put("Bear", Bear.class);
-        NAME_CLASSES.put("Boa", Boa.class);
-        NAME_CLASSES.put("Boar", Boar.class);
-        NAME_CLASSES.put("Buffalo", Buffalo.class);
-        NAME_CLASSES.put("Deer", Deer.class);
-        NAME_CLASSES.put("Fox", Fox.class);
-        NAME_CLASSES.put("Goat", Goat.class);
-        NAME_CLASSES.put("Horse", Horse.class);
-        NAME_CLASSES.put("Mouse", Mouse.class);
-        NAME_CLASSES.put("Rabbit", Rabbit.class);
-        NAME_CLASSES.put("Sheep", Sheep.class);
-        NAME_CLASSES.put("Wolf", Wolf.class);
-        NAME_CLASSES.put("Duck", Duck.class);
-        NAME_CLASSES.put("Eagle", Eagle.class);
-        NAME_CLASSES.put("Caterpillar", Caterpillar.class);
+        CONFIGURATIONS_ANIMALS.put(Bear.class, new double[]{500, 5, 2, 80});//
+        CONFIGURATIONS_ANIMALS.put(Boa.class, new double[]{15, 30, 1, 3});//
+        CONFIGURATIONS_ANIMALS.put(Boar.class, new double[]{400, 50, 2, 50});//
+        CONFIGURATIONS_ANIMALS.put(Buffalo.class, new double[]{700, 10, 3, 100});//
+        CONFIGURATIONS_ANIMALS.put(Deer.class, new double[]{300, 20, 4, 50});//
+        CONFIGURATIONS_ANIMALS.put(Fox.class, new double[]{8, 30, 2, 2});//
+        CONFIGURATIONS_ANIMALS.put(Goat.class, new double[]{60, 140, 3, 10});//
+        CONFIGURATIONS_ANIMALS.put(Horse.class, new double[]{400, 20, 4, 60});//
+        CONFIGURATIONS_ANIMALS.put(Mouse.class, new double[]{0.05, 500, 1, 0.01});//
+        CONFIGURATIONS_ANIMALS.put(Rabbit.class, new double[]{2, 150, 2, 0.45});//
+        CONFIGURATIONS_ANIMALS.put(Sheep.class, new double[]{70, 140, 3, 15});//
+        CONFIGURATIONS_ANIMALS.put(Wolf.class, new double[]{50, 30, 3, 8});//
+        CONFIGURATIONS_ANIMALS.put(Duck.class, new double[]{1, 200, 4, 0.15});//
+        CONFIGURATIONS_ANIMALS.put(Eagle.class, new double[]{6, 20, 3, 1});//
+        CONFIGURATIONS_ANIMALS.put(Caterpillar.class, new double[]{0.01, 1000, 0, 0});//
     }
 
-
-    /* Максимальное количество вида животного в локации. */
-    public static final Map<Class<?>, Integer> MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION = new HashMap<>();
-
-    static {
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Bear.class, 5);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Boa.class, 30);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Boar.class, 50);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Buffalo.class, 10);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Deer.class, 20);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Fox.class, 30);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Goat.class, 140);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Horse.class, 20);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Mouse.class, 500);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Rabbit.class, 150);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Sheep.class, 140);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Wolf.class, 30);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Duck.class, 200);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Eagle.class, 20);
-        MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.put(Caterpillar.class, 1000);
-    }
-
-    /* Максимальное количество шагов животного в локации. */
-    public static final Map<Class<?>, Integer> MAX_NUMBER_OF_ANIMAL_STEPS = new HashMap<>();
-
-    static {
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Bear.class, 2);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Boa.class, 1);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Boar.class, 2);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Buffalo.class, 3);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Deer.class, 4);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Fox.class, 2);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Goat.class, 3);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Horse.class, 4);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Mouse.class, 1);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Rabbit.class, 2);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Sheep.class, 3);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Wolf.class, 3);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Duck.class, 4);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Eagle.class, 3);
-//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Caterpillar.class, 0);
-    }
-
-    protected static final Map<Class<?>, Map<Class<?>, Integer>> PROBABILITY_FOR_EATERS = new HashMap<>();
+    public static final Map<Class<?>, Map<Class<?>, Integer>> PROBABILITY_FOR_EATERS = new HashMap<>();
 
     private static final Map<Class<?>, Integer> PROBABILITY_FOR_WOLF = new HashMap<>();
     private static final Map<Class<?>, Integer> PROBABILITY_FOR_BOA = new HashMap<>();

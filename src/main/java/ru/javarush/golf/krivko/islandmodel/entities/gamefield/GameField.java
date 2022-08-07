@@ -3,12 +3,8 @@ package ru.javarush.golf.krivko.islandmodel.entities.gamefield;
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 
 public class GameField {
-
+    //Статический костыль. Подумать как избавиться.
     private static final Location[][] LOCATIONS = new Location[Configuration.SIZE_X_GAME_FIELD][Configuration.SIZE_Y_GAME_FIELD];
-
-//    static {
-//        createLocations();
-//    }
 
     private void createLocations() {
         for (int y = 0; y < LOCATIONS[y].length; y++) {
@@ -22,14 +18,15 @@ public class GameField {
         createLocations();
     }
 
-    public void startSimulation() {
+    public void startSimulation() { //метод для однопоточки. Переписать под многопоточку.
         for (int y = 0; y < LOCATIONS[y].length; y++) {
-            for (int x = 0; x < LOCATIONS.length; x++) {
-                LOCATIONS[x][y].doAction();
+            for (Location[] location : LOCATIONS) {
+                location[y].doAction();
             }
         }
     }
 
+    //Статический костыль. Подумать как избавиться.
     public static Location getLocation(int yPosition, int xPosition) {
         return LOCATIONS[xPosition][yPosition];
     }

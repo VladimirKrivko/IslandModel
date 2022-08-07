@@ -16,23 +16,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Location {
     private final int xPosition;
     private final int yPosition;
-
     private int grass;
 
-    private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();// HashMap<>();
+    private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();
 
     public Location(int y, int x) {
         this.yPosition = y;
         this.xPosition = x;
         initializeAnimalSet();
         generationLife();
-    }
-
-    private void initializeAnimalSet() {
-        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
-            Set set = Collections.newSetFromMap(new ConcurrentHashMap<>());
-            animals.put(classAnimal, set);
-        }
     }
 
     public int getPositionX() {
@@ -43,40 +35,13 @@ public class Location {
         return yPosition;
     }
 
-    private void generationLife() {
-        generationPlants();
-        generationAnimals();
-    }
-
-    private void generationPlants() {
-        if (isCreateAnimalType()) {
-            this.grass = ThreadLocalRandom.current().nextInt(0, Configuration.GRASS_WEIGHT);
-        }
-    }
-
-    private void generationAnimals() {  //Здесь не происходит инициализация всех set'ов каждого вида животных!!!
-        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
-            if (isCreateAnimalType()) {
-                int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, Configuration.MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.get(classAnimal));
-                for (int i = 0; i < numberOfAnimalType; i++) {
-
-                    Object o = tryCreateAnimal(classAnimal);
-                    if (o instanceof Wolf) {
-                        animals.get(classAnimal).add((Wolf) o);
-                    }
-                    if (o instanceof Rabbit) {
-                        animals.get(classAnimal).add((Rabbit) o);
-                    }
-                }
-            }
-        }
-    }
-
     public void doAction() {
         for (Map.Entry<Class, Set<Animal<?>>> pair : animals.entrySet()) {
             Set<Animal<?>> value = pair.getValue();
             for (Animal<?> animal : value) {
-                animal.move(this);
+//                if (animal.weight < (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass()) / 10)) {
+                    animal.move(this);
+//                }
             }
         }
 
@@ -94,6 +59,42 @@ public class Location {
         } else {
             animals.put(animal.getClass(), new HashSet<>());
             animals.get(animal.getClass()).add(animal);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "[" + "\uD83D\uDC3A:" + animals.get(Wolf.class).size()
+                + "\uD83D\uDC07:" + animals.get(Rabbit.class).size()
+                + "\uD83C\uDF3F:" + grass + "]";
+    }
+
+    private void generationLife() {
+        generationPlants();
+        generationAnimals();
+    }
+
+    private void generationPlants() {
+        if (isCreateAnimalType()) {
+            this.grass = ThreadLocalRandom.current().nextInt(0, Configuration.GRASS_WEIGHT);
+        }
+    }
+
+    private void generationAnimals() {  //Здесь не происходит инициализация всех set'ов каждого вида животных!!!
+        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
+            if (isCreateAnimalType()) {
+                int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, (int) Configuration.CONFIGURATIONS_ANIMALS.get(classAnimal)[1]);
+                for (int i = 0; i < numberOfAnimalType; i++) {
+
+                    Object o = tryCreateAnimal(classAnimal);
+                    if (o instanceof Wolf) {                    //сравнивать с каждым видом, это временное решение
+                        animals.get(classAnimal).add((Wolf) o);
+                    }
+                    if (o instanceof Rabbit) {
+                        animals.get(classAnimal).add((Rabbit) o);
+                    }
+                }
+            }
         }
     }
 
@@ -115,8 +116,10 @@ public class Location {
         }
     }
 
-    @Override
-    public String toString() {
-        return "[" + "\uD83D\uDC3A:" + animals.get(Wolf.class).size() + "\uD83D\uDC07:" + animals.get(Rabbit.class).size() + "\uD83C\uDF3F:" + grass + "]";
+    private void initializeAnimalSet() {
+        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
+            Set set = Collections.newSetFromMap(new ConcurrentHashMap<>());
+            animals.put(classAnimal, set);
+        }
     }
 }

@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Animal<T> implements Movable {
     protected Class<T> clazz;
 
-//    private int weight;
+    protected double weight;
 //    private int amountOfFoodToSatiate;
 
 
@@ -28,29 +28,19 @@ public abstract class Animal<T> implements Movable {
         }
     }
 
-
-
-
-
     public void move(Location location){
         Location newLocation = choiceOfAvailableLocation(location);
-//        location.найти животное и удалить из списка локации;
         location.removeAnimalFromLocation(this);
-//        newLocation.поместить животное в список совего типа новой локации;
         newLocation.addAnimalToLocation(this);
     }
 
-    public int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?
-        Integer a =Configuration.MAX_NUMBER_OF_ANIMAL_STEPS.get(this.clazz);
-        if (a != null) {
-            return a;
-        }
-        return 0;
+    private int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?
+        return (int) Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[2];
     }
 
-    protected Location choiceOfAvailableLocation(Location location){
-        int yMin = location.getPositionY() - getMaxNumberOfStepsAnimal() < 0 ? 0: location.getPositionY() - getMaxNumberOfStepsAnimal();
-        int yMax = location.getPositionY() + getMaxNumberOfStepsAnimal() > Configuration.SIZE_Y_GAME_FIELD ? Configuration.SIZE_Y_GAME_FIELD: location.getPositionY() + getMaxNumberOfStepsAnimal();
+    private Location choiceOfAvailableLocation(Location location){
+        int yMin = Math.max(location.getPositionY() - getMaxNumberOfStepsAnimal(), 0);
+        int yMax = Math.min(location.getPositionY() + getMaxNumberOfStepsAnimal(), Configuration.SIZE_Y_GAME_FIELD);
 
         int xMin = Math.max(location.getPositionX() - getMaxNumberOfStepsAnimal(), 0);
         int xMax = Math.min(location.getPositionX() + getMaxNumberOfStepsAnimal(), Configuration.SIZE_X_GAME_FIELD);
