@@ -73,21 +73,21 @@ public class Configuration {
     public static final Map<Class<?>, Integer> MAX_NUMBER_OF_ANIMAL_STEPS = new HashMap<>();
 
     static {
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Bear.class, 2);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Boa.class, 1);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Boar.class, 2);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Buffalo.class, 3);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Deer.class, 4);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Fox.class, 2);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Goat.class, 3);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Horse.class, 4);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Mouse.class, 1);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Rabbit.class, 2);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Sheep.class, 3);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Bear.class, 2);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Boa.class, 1);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Boar.class, 2);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Buffalo.class, 3);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Deer.class, 4);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Fox.class, 2);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Goat.class, 3);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Horse.class, 4);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Mouse.class, 1);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Rabbit.class, 2);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Sheep.class, 3);
         MAX_NUMBER_OF_ANIMAL_STEPS.put(Wolf.class, 3);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Duck.class, 4);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Eagle.class, 3);
-        MAX_NUMBER_OF_ANIMAL_STEPS.put(Caterpillar.class, 0);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Duck.class, 4);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Eagle.class, 3);
+//        MAX_NUMBER_OF_ANIMAL_STEPS.put(Caterpillar.class, 0);
     }
 
     protected static final Map<Class<?>, Map<Class<?>, Integer>> PROBABILITY_FOR_EATERS = new HashMap<>();

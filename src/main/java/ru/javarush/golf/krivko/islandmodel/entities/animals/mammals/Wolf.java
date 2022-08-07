@@ -4,8 +4,9 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 
 public class Wolf extends Animal {
 
-    public Wolf() { }
-
+    public Wolf() {
+        this.clazz = Wolf.class;
+    }
 }
 
 

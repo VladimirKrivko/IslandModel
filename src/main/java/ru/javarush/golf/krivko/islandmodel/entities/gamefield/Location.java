@@ -5,10 +5,11 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Location {
@@ -17,7 +18,7 @@ public class Location {
 
     private int grass;
 
-    private final Map<Class<?>, Set<Animal<?>>> animals = new HashMap<>();
+    private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();// HashMap<>();
 
     public Location(int y, int x) {
         this.yPosition = y;
@@ -28,7 +29,8 @@ public class Location {
 
     private void initializeAnimalSet() {
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
-            animals.put(classAnimal, new HashSet<>());
+            Set set = Collections.newSetFromMap(new ConcurrentHashMap<>());
+            animals.put(classAnimal, set);
         }
     }
 
@@ -51,7 +53,7 @@ public class Location {
         }
     }
 
-    private void generationAnimals() {  //Сделать уникальность создаваемых животных?
+    private void generationAnimals() {  //Здесь не происходит инициализация всех set'ов каждого вида животных!!!
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
             if (isCreateAnimalType()) {
                 int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, Configuration.MAX_NUMBER_TYPE_OF_ANIMAL_PER_LOCATION.get(classAnimal));
@@ -66,12 +68,29 @@ public class Location {
         }
     }
 
-    public void removeAnimalFromLocation(Animal<?> animal) {
-        //реализация удаления животного
+    public void doAction() {
+        for (Map.Entry<Class, Set<Animal<?>>> pair : animals.entrySet()) {
+            Set<Animal<?>> value = pair.getValue();
+            for (Animal<?> animal : value) {
+                animal.move(this);
+            }
+        }
+
     }
 
-    public void addAnimalToLocation(Animal<?> animal) {
+    public void removeAnimalFromLocation(Animal<?> animal) {
+        //реализация удаления животного
+        animals.get(animal.getClass()).remove(animal);
+    }
+
+    public void addAnimalToLocation(Animal<?> animal) { // добавил проверку на нуль
         //реализация добавления животного
+        if (animals.get(animal.getClass()) != null) {
+            animals.get(animal.getClass()).add(animal);
+        } else {
+            animals.put(animal.getClass(), new HashSet<>());
+            animals.get(animal.getClass()).add(animal);
+        }
     }
 
     private boolean isCreateAnimalType() {
