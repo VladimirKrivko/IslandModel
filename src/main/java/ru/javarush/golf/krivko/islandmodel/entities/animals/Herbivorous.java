@@ -1,7 +1,7 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
-import ru.javarush.golf.krivko.islandmodel.entities.plants.Plant;
+import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
-public interface Herbivorous {
-    void eat(Plant plant);
+public interface Herbivorous{
+    void eat(Location location);
 }

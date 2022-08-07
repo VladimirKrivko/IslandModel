@@ -13,7 +13,7 @@ public class Configuration {
     public static final int SIZE_Y_GAME_FIELD = 5;
     public static final int SIZE_X_GAME_FIELD = 10;
 
-    public static final int GRASS_WEIGHT = 200; // Если делать без создания объектов травы, то double!
+    public static final double GRASS_WEIGHT = 200; // Если делать без создания объектов травы, то double!
     //    public static final int MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
 
     private Configuration(){

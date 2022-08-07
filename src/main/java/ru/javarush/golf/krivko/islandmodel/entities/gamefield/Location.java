@@ -16,7 +16,20 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Location {
     private final int xPosition;
     private final int yPosition;
-    private int grass;
+
+    public double getGrass() {
+        return grass;
+    }
+
+    public void setGrass(double grass) {
+        this.grass = grass;
+    }
+
+    private double grass;
+
+    public Map<Class, Set<Animal<?>>> getAnimals() {
+        return animals;
+    }
 
     private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();
 
@@ -39,12 +52,28 @@ public class Location {
         for (Map.Entry<Class, Set<Animal<?>>> pair : animals.entrySet()) {
             Set<Animal<?>> value = pair.getValue();
             for (Animal<?> animal : value) {
-//                if (animal.weight < (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass()) / 10)) {
+                if (animal.getWeight() > (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 1.2)) {
                     animal.move(this);
-//                }
+                } else {
+                    if (animal instanceof Rabbit) {
+                        ((Rabbit) animal).eat(this);
+                    }
+                    if (animal instanceof Wolf) {
+                        ((Wolf) animal).eat(this);
+                    }
+                }
+                if (animal.getWeight() < Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 2.5) {
+                    this.removeAnimalFromLocation(animal);
+                }
             }
         }
+        grassGrowth();
+    }
 
+    private void grassGrowth() {                                     //растет трава
+        if (this.grass < Configuration.GRASS_WEIGHT) {
+            this.grass += 0.1;
+        }
     }
 
     public void removeAnimalFromLocation(Animal<?> animal) {
@@ -66,7 +95,7 @@ public class Location {
     public String toString() {
         return "[" + "\uD83D\uDC3A:" + animals.get(Wolf.class).size()
                 + "\uD83D\uDC07:" + animals.get(Rabbit.class).size()
-                + "\uD83C\uDF3F:" + grass + "]";
+                + "\uD83C\uDF3F: " + String.format("%.2f", grass) + "]";
     }
 
     private void generationLife() {
@@ -76,7 +105,7 @@ public class Location {
 
     private void generationPlants() {
         if (isCreateAnimalType()) {
-            this.grass = ThreadLocalRandom.current().nextInt(0, Configuration.GRASS_WEIGHT);
+            this.grass = ThreadLocalRandom.current().nextInt(0, (int) Configuration.GRASS_WEIGHT);
         }
     }
 

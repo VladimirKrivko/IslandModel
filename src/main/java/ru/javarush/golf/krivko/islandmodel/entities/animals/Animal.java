@@ -11,6 +11,14 @@ public abstract class Animal<T> implements Movable {
     protected Class<T> clazz;
 
     protected double weight;
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 //    private int amountOfFoodToSatiate;
 
 
@@ -32,6 +40,10 @@ public abstract class Animal<T> implements Movable {
         Location newLocation = choiceOfAvailableLocation(location);
         location.removeAnimalFromLocation(this);
         newLocation.addAnimalToLocation(this);
+        this.weight -= 0.1;       // животное теряет массу при ходьбе. -1 вынести в Configuration. для каждого животного своя потеря веса!
+//        if (this.weight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5) {
+//            newLocation.removeAnimalFromLocation(this);
+//        }
     }
 
     private int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?
