@@ -27,11 +27,11 @@ public class Location {
 
     private double grass;
 
+    private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();
+
     public Map<Class, Set<Animal<?>>> getAnimals() {
         return animals;
     }
-
-    private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();
 
     public Location(int y, int x) {
         this.yPosition = y;
@@ -93,9 +93,9 @@ public class Location {
 
     @Override
     public String toString() {
-        return "[" + "\uD83D\uDC3A:" + animals.get(Wolf.class).size()
-                + "\uD83D\uDC07:" + animals.get(Rabbit.class).size()
-                + "\uD83C\uDF3F: " + String.format("%.2f", grass) + "]";
+        return "[" + "\uD83D\uDC3A" + animals.get(Wolf.class).size()
+                + ":\uD83D\uDC07" + animals.get(Rabbit.class).size()
+                + ":\uD83C\uDF3F" + String.format("%.2f", grass) + "]";
     }
 
     private void generationLife() {
@@ -109,19 +109,20 @@ public class Location {
         }
     }
 
-    private void generationAnimals() {  //Здесь не происходит инициализация всех set'ов каждого вида животных!!!
+    private <T> void generationAnimals() {  //Здесь не происходит инициализация всех set'ов каждого вида животных!!!
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
             if (isCreateAnimalType()) {
                 int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, (int) Configuration.CONFIGURATIONS_ANIMALS.get(classAnimal)[1]);
                 for (int i = 0; i < numberOfAnimalType; i++) {
 
-                    Object o = tryCreateAnimal(classAnimal);
-                    if (o instanceof Wolf) {                    //сравнивать с каждым видом, это временное решение
-                        animals.get(classAnimal).add((Wolf) o);
-                    }
-                    if (o instanceof Rabbit) {
-                        animals.get(classAnimal).add((Rabbit) o);
-                    }
+                    T o = (T) tryCreateAnimal(classAnimal);
+                    animals.get(classAnimal).add((Animal<?>) o);
+//                    if (o instanceof Wolf) {                    //сравнивать с каждым видом, это временное решение
+//                        animals.get(classAnimal).add((Wolf) o);
+//                    }
+//                    if (o instanceof Rabbit) {
+//                        animals.get(classAnimal).add((Rabbit) o);
+//                    }
                 }
             }
         }
