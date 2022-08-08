@@ -27,9 +27,9 @@ public class Location {
 
     private double grass;
 
-    private final Map<Class, Set<Animal<?>>> animals = new ConcurrentHashMap<>();
+    private final Map<Class, Set<Animal>> animals = new ConcurrentHashMap<>();
 
-    public Map<Class, Set<Animal<?>>> getAnimals() {
+    public Map<Class, Set<Animal>> getAnimals() {
         return animals;
     }
 
@@ -49,9 +49,9 @@ public class Location {
     }
 
     public void doAction() {
-        for (Map.Entry<Class, Set<Animal<?>>> pair : animals.entrySet()) {
-            Set<Animal<?>> value = pair.getValue();
-            for (Animal<?> animal : value) {
+        for (Map.Entry<Class, Set<Animal>> pair : animals.entrySet()) {
+            Set<Animal> value = pair.getValue();
+            for (Animal animal : value) {
                 if (animal.getWeight() > (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 1.2)) {
                     animal.move(this);
                 } else {
@@ -76,12 +76,12 @@ public class Location {
         }
     }
 
-    public void removeAnimalFromLocation(Animal<?> animal) {
+    public void removeAnimalFromLocation(Animal animal) {
         //реализация удаления животного
         animals.get(animal.getClass()).remove(animal);
     }
 
-    public void addAnimalToLocation(Animal<?> animal) { // добавил проверку на нуль
+    public void addAnimalToLocation(Animal animal) { // добавил проверку на нуль
         //реализация добавления животного
         if (animals.get(animal.getClass()) != null) {
             animals.get(animal.getClass()).add(animal);
@@ -109,15 +109,15 @@ public class Location {
         }
     }
 
-    private <T> void generationAnimals() {  //Здесь не происходит инициализация всех set'ов каждого вида животных!!!
+    private <T> void generationAnimals() {
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
             if (isCreateAnimalType()) {
                 int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, (int) Configuration.CONFIGURATIONS_ANIMALS.get(classAnimal)[1]);
                 for (int i = 0; i < numberOfAnimalType; i++) {
 
-                    T o = (T) tryCreateAnimal(classAnimal);
-                    animals.get(classAnimal).add((Animal<?>) o);
-//                    if (o instanceof Wolf) {                    //сравнивать с каждым видом, это временное решение
+                    T o = (T) tryCreateAnimal(classAnimal);     //и чо? как буду вынимать их?
+                    animals.get(classAnimal).add((Animal) o);
+//                    if (o instanceof Wolf) {                    //сравнивать с каждым видом, это УЖС!!
 //                        animals.get(classAnimal).add((Wolf) o);
 //                    }
 //                    if (o instanceof Rabbit) {
