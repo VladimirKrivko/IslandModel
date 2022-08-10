@@ -1,6 +1,7 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals.mammals;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.entities.EntityType;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
@@ -8,8 +9,8 @@ import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 public class Wolf extends Animal implements Carnivorous {
 
     public Wolf() {
-        this.clazz = Wolf.class;
-        this.weight = Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0];
+//        this.clazz = Wolf.class;
+        this.weight = Configuration.CONFIGURATIONS_ANIMALS.get(EntityType.WOLF)[0];
     }
 
     @Override

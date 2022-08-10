@@ -18,13 +18,13 @@ public class GameField {
         createLocations();
     }
 
-    public void startSimulation() { //метод для однопоточки. Переписать под многопоточку.
-        for (int y = 0; y < LOCATIONS[y].length; y++) {
-            for (Location[] location : LOCATIONS) {
-                location[y].doAction();
-            }
-        }
-    }
+//    public void startSimulation() { //метод для однопоточки. Переписать под многопоточку.
+//        for (int y = 0; y < LOCATIONS[y].length; y++) {
+//            for (Location[] location : LOCATIONS) {
+//                location[y].doAction();
+//            }
+//        }
+//    }
 
     //Статический костыль. Подумать как избавиться.
     public static Location getLocation(int yPosition, int xPosition) {

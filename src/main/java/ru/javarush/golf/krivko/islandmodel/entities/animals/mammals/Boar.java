@@ -1,4 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals.mammals;
 
-public class Boar {
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+
+public class Boar extends Animal {
 }

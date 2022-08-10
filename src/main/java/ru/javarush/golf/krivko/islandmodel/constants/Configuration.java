@@ -1,5 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.constants;
 
+import ru.javarush.golf.krivko.islandmodel.entities.EntityType;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.birds.Duck;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.birds.Eagle;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.insects.Caterpillar;
@@ -14,9 +15,8 @@ public class Configuration {
     public static final int SIZE_X_GAME_FIELD = 10;
 
     public static final double GRASS_WEIGHT = 200; // Если делать без создания объектов травы, то double!
-    //    public static final int MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
 
-    private Configuration(){
+    private Configuration() {
         throw new IllegalStateException("Configuration class");
     }
 
@@ -26,24 +26,25 @@ public class Configuration {
             Fox.class, Goat.class, Horse.class, Mouse.class,*/ Rabbit.class, /* Sheep.class,*/ Wolf.class/*, Caterpillar.class,
             Duck.class, Eagle.class*/);
 
-    public static final Map<Class<?>, double[]> CONFIGURATIONS_ANIMALS = new HashMap<>();
+    public static final Map<EntityType, double[]> CONFIGURATIONS_ANIMALS = new HashMap<>(); //+
 
     static {
-        CONFIGURATIONS_ANIMALS.put(Bear.class, new double[]{500, 5, 2, 80});//
-        CONFIGURATIONS_ANIMALS.put(Boa.class, new double[]{15, 30, 1, 3});//
-        CONFIGURATIONS_ANIMALS.put(Boar.class, new double[]{400, 50, 2, 50});//
-        CONFIGURATIONS_ANIMALS.put(Buffalo.class, new double[]{700, 10, 3, 100});//
-        CONFIGURATIONS_ANIMALS.put(Deer.class, new double[]{300, 20, 4, 50});//
-        CONFIGURATIONS_ANIMALS.put(Fox.class, new double[]{8, 30, 2, 2});//
-        CONFIGURATIONS_ANIMALS.put(Goat.class, new double[]{60, 140, 3, 10});//
-        CONFIGURATIONS_ANIMALS.put(Horse.class, new double[]{400, 20, 4, 60});//
-        CONFIGURATIONS_ANIMALS.put(Mouse.class, new double[]{0.05, 500, 1, 0.01});//
-        CONFIGURATIONS_ANIMALS.put(Rabbit.class, new double[]{2, 150, 2, 0.45});//
-        CONFIGURATIONS_ANIMALS.put(Sheep.class, new double[]{70, 140, 3, 15});//
-        CONFIGURATIONS_ANIMALS.put(Wolf.class, new double[]{50, 30, 3, 8});//
-        CONFIGURATIONS_ANIMALS.put(Duck.class, new double[]{1, 200, 4, 0.15});//
-        CONFIGURATIONS_ANIMALS.put(Eagle.class, new double[]{6, 20, 3, 1});//
-        CONFIGURATIONS_ANIMALS.put(Caterpillar.class, new double[]{0.01, 1000, 0, 0});//
+//        CONFIGURATIONS_ANIMALS.put(EntityType.BEAR, new double[]{500, 5, 2, 80});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.BOA, new double[]{15, 30, 1, 3});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.BOAR, new double[]{400, 50, 2, 50});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.BUFFALO, new double[]{700, 10, 3, 100});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.DEER, new double[]{300, 20, 4, 50});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.FOX, new double[]{8, 30, 2, 2});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.GOAT, new double[]{60, 140, 3, 10});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.HORSE, new double[]{400, 20, 4, 60});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.MOUSE, new double[]{0.05, 500, 1, 0.01});
+        CONFIGURATIONS_ANIMALS.put(EntityType.RABBIT, new double[]{2, 150, 2, 0.45});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.SHEEP, new double[]{70, 140, 3, 15});
+        CONFIGURATIONS_ANIMALS.put(EntityType.WOLF, new double[]{50, 30, 3, 8});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.DUCK, new double[]{1, 200, 4, 0.15});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.EAGLE, new double[]{6, 20, 3, 1});
+//        CONFIGURATIONS_ANIMALS.put(EntityType.CATERPILLAR, new double[]{0.01, 1000, 0, 0});
+        CONFIGURATIONS_ANIMALS.put(EntityType.GRASS, new double[]{1, 200, 0, 0});
     }
 
     public static final Map<Class<?>, Map<Class<?>, Integer>> PROBABILITY_FOR_EATERS = new HashMap<>();

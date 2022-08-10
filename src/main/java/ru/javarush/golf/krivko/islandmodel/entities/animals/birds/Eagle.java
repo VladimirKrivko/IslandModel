@@ -1,4 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals.birds;
 
-public class Eagle {
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+
+public class Eagle extends Animal {
 }
