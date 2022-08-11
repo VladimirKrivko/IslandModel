@@ -2,13 +2,14 @@ package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.Entity;
+import ru.javarush.golf.krivko.islandmodel.entities.EntityType;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.GameField;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends Entity implements Movable {
-//    protected Class<? extends Animal> clazz;
+//    protected Class<T> clazz;
 
 //    protected double weight;
 
@@ -24,15 +25,15 @@ public abstract class Animal extends Entity implements Movable {
     public void move(Location location){
         Location newLocation = choiceOfAvailableLocation(location);
         location.removeAnimalFromLocation(this);
-//        newLocation.addAnimalToLocation(this);
-        this.weight -= 0.1;       // животное теряет массу при ходьбе. -1 вынести в Configuration. для каждого животного своя потеря веса!
+        newLocation.addAnimalToLocation(this);
+//        this.weight -= 0.1;       // животное теряет массу при ходьбе. -1 вынести в Configuration. для каждого животного своя потеря веса!
 //        if (this.weight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5) {
 //            newLocation.removeAnimalFromLocation(this);
 //        }
     }
 
     private int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?
-        return (int) Configuration.CONFIGURATIONS_ANIMALS.get(this.getType())[2];   //+
+        return (int) Configuration.CONFIGURATIONS_ANIMALS.get(EntityType.valueOf(this.getType().toUpperCase()))[2];   //+
     }
 
     private Location choiceOfAvailableLocation(Location location){
