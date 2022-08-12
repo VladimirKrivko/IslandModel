@@ -35,11 +35,11 @@ public abstract class Animal implements Movable {
 
     private Location choiceOfAvailableLocation(Location location){
         int steps = getMaxNumberOfStepsAnimal();
-        Location destinationLocation = location;
-        for(int i = 0; i < steps; i++) {
-            destinationLocation = destinationLocation.getNeighboringLocations().get(ThreadLocalRandom.current().nextInt(0, location.getNeighboringLocations().size()));
+//        Location destinationLocation = location;
+        for(int i = steps; i >= 0; i--) {
+            location = location.getNeighboringLocations().get(ThreadLocalRandom.current().nextInt(0, location.getNeighboringLocations().size()));
         }
-        return destinationLocation;
+        return location;
     }
 
 }

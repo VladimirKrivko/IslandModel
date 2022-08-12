@@ -27,19 +27,19 @@ public class Location {
         for (Map.Entry<Class, Set<Animal>> pair : animals.entrySet()) {
             Set<Animal> value = pair.getValue();
             for (Animal animal : value) {
-                if (animal.getWeight() > (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 1.2)) {
+//                if (animal.getWeight() > (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 1.2)) {
                     animal.move(this);
-                } else {
+//                } else {
 //                    if (animal instanceof Rabbit) {
 //                        ((Rabbit) animal).eat(this);
 //                    }
 //                    if (animal instanceof Wolf) {
 //                        ((Wolf) animal).eat(this);
 //                    }
-                }
-                if (animal.getWeight() < Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 2.5) {
-                    this.removeAnimalFromLocation(animal);
-                }
+//                }
+//                if (animal.getWeight() < Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 2.5) {
+//                    this.removeAnimalFromLocation(animal);
+//                }
             }
         }
         grassGrowth();
