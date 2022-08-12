@@ -1,7 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
-import ru.javarush.golf.krivko.islandmodel.entities.gamefield.GameField;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,9 +17,8 @@ public abstract class Animal implements Movable {
     public void setWeight(double weight) {
         this.weight = weight;
     }
-//    private int amountOfFoodToSatiate;
 
-
+    @Override
     public void move(Location location){
         Location newLocation = choiceOfAvailableLocation(location);
         location.removeAnimalFromLocation(this);
@@ -36,16 +34,12 @@ public abstract class Animal implements Movable {
     }
 
     private Location choiceOfAvailableLocation(Location location){
-        int yMin = Math.max(location.getPositionY() - getMaxNumberOfStepsAnimal(), 0);
-        int yMax = Math.min(location.getPositionY() + getMaxNumberOfStepsAnimal(), Configuration.SIZE_Y_GAME_FIELD);
-
-        int xMin = Math.max(location.getPositionX() - getMaxNumberOfStepsAnimal(), 0);
-        int xMax = Math.min(location.getPositionX() + getMaxNumberOfStepsAnimal(), Configuration.SIZE_X_GAME_FIELD);
-
-        int coordinateY = ThreadLocalRandom.current().nextInt(yMin, yMax);
-        int coordinateX = ThreadLocalRandom.current().nextInt(xMin, xMax);
-
-        return GameField.getLocation(coordinateY, coordinateX);
+        int steps = getMaxNumberOfStepsAnimal();
+        Location destinationLocation = location;
+        for(int i = 0; i < steps; i++) {
+            destinationLocation = destinationLocation.getNeighboringLocations().get(ThreadLocalRandom.current().nextInt(0, location.getNeighboringLocations().size()));
+        }
+        return destinationLocation;
     }
 
 }

@@ -1,6 +1,4 @@
 
-…
-Usrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/gamefield/Coordinates.java,8\b\8b3b39b91f48afbe9aeb83b1bcf22c5aae6702fc
 ƒ
 Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Boa.java,5\5\554933d2e80b2d1f8c06be7bdb1ddb86e4694888
 „
@@ -13,8 +11,6 @@ Rsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Duck.j
 Rsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Bird.java,5\7\57d38bbe703aca691bdafd11b339ba29895d4bf1
 †
 Vsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/insects/Insect.java,b\e\be6547e6bd0308fc70ae3df691df858c4c05636c
-v
-Fsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/Entity.java,b\2\b20a9de9200efe3ddb81a790a60b7431b2a89978
 …
 Usrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/Insectivorous.java,c\f\cf2ca7d0c0d45c8ff6c0af9bc2a93becf778e7a1
 |
