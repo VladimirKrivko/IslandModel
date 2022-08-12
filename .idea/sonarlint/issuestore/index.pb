@@ -15,8 +15,6 @@ Rsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Bird.j
 Vsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/insects/Insect.java,b\e\be6547e6bd0308fc70ae3df691df858c4c05636c
 v
 Fsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/Entity.java,b\2\b20a9de9200efe3ddb81a790a60b7431b2a89978
-
-Osrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/Movable.java,9\0\90e85cc28120baf490faff726a3a5810837a084b
 …
 Usrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/Insectivorous.java,c\f\cf2ca7d0c0d45c8ff6c0af9bc2a93becf778e7a1
 |
