@@ -57,7 +57,7 @@ public class WorldGenerator {
         }
     }
 
-    //Инициализировать списки в мапе animals
+    //Инициализировать списки в мапе animals ???
 
 
 

@@ -7,16 +7,19 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Location {
     private final int xPosition;
     private final int yPosition;
     private double grass;
-
     private final List<Location> neighboringLocations = new ArrayList<>();
-
-
     private final Map<Class, Set<Animal>> animals = new ConcurrentHashMap<>();
+    private final Lock lock = new ReentrantLock(true);
+    public Lock getLock() {
+        return lock;
+    }
 
     public Location(int y, int x) {
         this.yPosition = y;

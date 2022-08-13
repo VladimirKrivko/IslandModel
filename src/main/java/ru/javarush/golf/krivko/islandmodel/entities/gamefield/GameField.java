@@ -17,8 +17,8 @@ public class GameField {
 
     public void print() {
         for (int y = 0; y < locations[y].length; y++) {
-            for (Location[] location : locations) {
-                System.out.print(location[y]);
+            for (int x = 0; x < locations.length; x++) {
+                System.out.print(locations[x][y]);
             }
             System.out.println();
         }
