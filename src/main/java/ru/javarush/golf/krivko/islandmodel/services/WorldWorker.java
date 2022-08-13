@@ -13,9 +13,9 @@ public class WorldWorker extends Thread{
     private final WorldGenerator worldGenerator;
 
     //
-    private final long lifeCycleDuration = 1000;
+    private final long lifeCycleDuration = 500;
     private final Boolean stopOnTimeout = true;
-    private final int gameDuration = 10000;
+    private final int gameDuration = 60000;
 
     public WorldWorker(WorldGenerator worldGenerator) {
         this.worldGenerator = worldGenerator;

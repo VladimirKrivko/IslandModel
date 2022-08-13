@@ -10,12 +10,22 @@ public abstract class Animal implements Movable {
 
     protected double weight;
 
-    public double getWeight() {
-        return weight;
+//    public double getWeight() {
+//        return weight;
+//    }
+//
+//    public void setWeight(double weight) {
+//        this.weight = weight;
+//    }
+
+    public void weightLoss() {
+        this.weight -= this.weight/10;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void timeToDie(Location location) {
+        if (this.weight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5) {
+            location.removeAnimalFromLocation(this);
+        }
     }
 
     @Override
@@ -28,9 +38,6 @@ public abstract class Animal implements Movable {
         }
 
         this.weight -= 0.1;       // животное теряет массу при ходьбе. -1 вынести в Configuration. для каждого животного своя потеря веса!
-//        if (this.weight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5) {
-//            newLocation.removeAnimalFromLocation(this);
-//        }
     }
 
     private int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?

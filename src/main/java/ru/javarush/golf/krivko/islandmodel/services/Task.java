@@ -18,9 +18,11 @@ public class Task {
 //            animal.multiply(location);
 //        }
         animal.move(location);
+        animal.weightLoss();
 //        animal.growUp(location);
 //        animal.multiply(location);
 
 //        animal.starve(location);
+        animal.timeToDie(location);
     }
 }
