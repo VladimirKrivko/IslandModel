@@ -26,28 +26,6 @@ public class Location {
         this.xPosition = x;
     }
 
-    public void doAction() {
-        for (Map.Entry<Class, Set<Animal>> pair : animals.entrySet()) {
-            Set<Animal> value = pair.getValue();
-            for (Animal animal : value) {
-//                if (animal.getWeight() > (Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 1.2)) {
-                    animal.move(this);
-//                } else {
-//                    if (animal instanceof Rabbit) {
-//                        ((Rabbit) animal).eat(this);
-//                    }
-//                    if (animal instanceof Wolf) {
-//                        ((Wolf) animal).eat(this);
-//                    }
-//                }
-//                if (animal.getWeight() < Configuration.CONFIGURATIONS_ANIMALS.get(animal.getClass())[0] / 2.5) {
-//                    this.removeAnimalFromLocation(animal);
-//                }
-            }
-        }
-        grassGrowth();
-    }
-
     public void removeAnimalFromLocation(Animal animal) {
         //реализация удаления животного
         animals.get(animal.getClass()).remove(animal);
@@ -92,6 +70,10 @@ public class Location {
 
     public int getPositionY() {
         return yPosition;
+    }
+
+    public boolean isThereEnoughSpace(Class animalClass) {
+        return animals.get(animalClass).size() < Configuration.CONFIGURATIONS_ANIMALS.get(animalClass)[1];
     }
 
     private void grassGrowth() {                                     //растет трава

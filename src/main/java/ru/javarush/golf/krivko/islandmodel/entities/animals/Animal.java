@@ -21,8 +21,12 @@ public abstract class Animal implements Movable {
     @Override
     public void move(Location location){
         Location newLocation = choiceOfAvailableLocation(location);
-        location.removeAnimalFromLocation(this);
-        newLocation.addAnimalToLocation(this);
+        // добавить проверку есть ли место в новой локации для животного this
+        if (newLocation.isThereEnoughSpace(this.clazz)) {
+            location.removeAnimalFromLocation(this);
+            newLocation.addAnimalToLocation(this);
+        }
+
         this.weight -= 0.1;       // животное теряет массу при ходьбе. -1 вынести в Configuration. для каждого животного своя потеря веса!
 //        if (this.weight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5) {
 //            newLocation.removeAnimalFromLocation(this);
