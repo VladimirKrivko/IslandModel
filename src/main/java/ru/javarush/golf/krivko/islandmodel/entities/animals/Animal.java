@@ -3,6 +3,8 @@ package ru.javarush.golf.krivko.islandmodel.entities.animals;
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -11,7 +13,7 @@ public abstract class Animal implements Movable, Cloneable {
     protected double weight;
 
     protected boolean sex; // если true, то самец!
-    public boolean isAte = false; //?
+    protected boolean isAte; //?
 
 
 
@@ -20,7 +22,7 @@ public abstract class Animal implements Movable, Cloneable {
     }
 
     public void weightLoss() {
-        this.weight -= this.weight/10;
+        this.weight -= this.weight/5;
     }
 
     public void timeToDie(Location location) {
@@ -39,38 +41,51 @@ public abstract class Animal implements Movable, Cloneable {
                 Animal clone = this.clone();
                 location.addAnimalToLocation(clone);
                 //потеря веса после спаривания ? пол?
+                this.weightLoss();
 //            }
         }
     }
 
-//    public void eat(Location location) {        //не работает!
-//        Map<Class<?>, Integer> probabilityVictimsMap = Configuration.PROBABILITY_FOR_EATERS.get(this.clazz);
-//        Iterator<Map.Entry<Class<?>, Integer>> probabilityVictimsMapIterator = probabilityVictimsMap.entrySet().iterator();
-//        while(!this.isAte || probabilityVictimsMapIterator.hasNext()) {
-//            Map.Entry<Class<?>, Integer> probabilityForEater = probabilityVictimsMapIterator.next();
-//            Class<?> victimClass = probabilityForEater.getKey();
-//            Integer probabilityToEat = probabilityForEater.getValue();
-//            Set<Animal> victims = location.getAnimals().get(victimClass);
-//            if(ThreadLocalRandom.current().nextDouble(0, 100) <= probabilityToEat && victims!=null && !victims.isEmpty()) {
-//                Iterator<Animal> victimsIterator = victims.iterator();
-//                if (victimsIterator.hasNext()) {
-//                    Animal victim = victims.stream().findFirst().get();
-//                    this.weight = Math.min(this.weight + (victim.weight / 1.5), Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
-//                    victimsIterator.remove();
-//                    // после того как животное поест this.didTheAnimalEat = true;
-//                    this.isAte = true;
-//                }
-//            }
-//        }
-//        this.isAte = false;
-//    }
+    public void eat(Location location) {        //не работает!
+        location.getLock().lock();
+
+        try {
+            Map<Class<?>, Integer> probabilityForEaters = Configuration.PROBABILITY_FOR_EATERS.get(this.clazz);
+            Iterator<Map.Entry<Class<?>, Integer>> probabilityForEatersIterator = probabilityForEaters.entrySet().iterator();
+            while (!this.isAte || probabilityForEatersIterator.hasNext()) {
+                Map.Entry<Class<?>, Integer> probabilityForEater = probabilityForEatersIterator.next();
+                Class<?> victimClass = probabilityForEater.getKey();
+                Integer probabilityOfBeingEaten = probabilityForEater.getValue();
+                Set<Animal> victims = location.getAnimals().get(victimClass);
+                if (ThreadLocalRandom.current().nextInt(0, 100) <= probabilityOfBeingEaten && victims != null && !victims.isEmpty()) {
+                    Iterator<Animal> victimsIterator = victims.iterator();
+                    if (victimsIterator.hasNext()) {
+                        Animal victim = victimsIterator.next();
+                        this.weight = Math.min(this.weight + (victim.weight / 1.5), Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+                        victimsIterator.remove();
+//                    location.removeAnimalFromLocation(victim);
+                        // после того как животное поест this.didTheAnimalEat = true;
+                        this.isAte = true;
+                    }
+                }
+            }
+        } finally {
+            this.isAte = false;
+            location.getLock().unlock();
+        }
+    }
 
     @Override
     public void move(Location location){
-        Location newLocation = choiceOfAvailableLocation(location);
-        if (newLocation.isThereEnoughSpace(this.clazz)) {
-            location.removeAnimalFromLocation(this);
-            newLocation.addAnimalToLocation(this);
+        location.getLock().lock();
+        try {
+            Location newLocation = choiceOfAvailableLocation(location);
+            if (newLocation.isThereEnoughSpace(this.clazz)) {
+                location.removeAnimalFromLocation(this);
+                newLocation.addAnimalToLocation(this);
+            }
+        } finally {
+            location.getLock().unlock();
         }
     }
 
@@ -92,6 +107,7 @@ public abstract class Animal implements Movable, Cloneable {
             Animal clone = (Animal) super.clone();
             // TODO: copy mutable state here, so the clone can't change the internals of the original
             clone.weight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+            clone.sex = ThreadLocalRandom.current().nextBoolean();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

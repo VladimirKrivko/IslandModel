@@ -74,8 +74,8 @@ public class Location {
     }
 
     public synchronized void grassGrowth() {                                     //растет трава
-        if (this.grass + 0.5 < Configuration.GRASS_WEIGHT) {
-            this.grass += 0.5;
+        if (this.grass + 0.05 < Configuration.GRASS_WEIGHT) {
+            this.grass += 0.05;
         } else {
             this.grass = Configuration.GRASS_WEIGHT;
         }

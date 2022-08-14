@@ -19,7 +19,7 @@ public class Task {
 //        if (animal instanceof Carnivorous) {
 //            ((Carnivorous) animal).eat(location);
 //        }
-//        animal.eat(location);
+        animal.eat(location);
         animal.reproduction(location);
         animal.move(location);
         animal.weightLoss();

@@ -2,16 +2,16 @@ package ru.javarush.golf.krivko.islandmodel.entities.animals.mammals;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
-import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Wolf extends Animal implements Carnivorous {
+public class Wolf extends Animal {
 
     public Wolf() {
         this.clazz = Wolf.class;
         this.sex = ThreadLocalRandom.current().nextBoolean();
-        this.weight = Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0];//ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]);
+        this.weight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]);
+        this.isAte = false;
     }
 
 
