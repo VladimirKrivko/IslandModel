@@ -13,10 +13,13 @@ public class Task {
     }
 
     public void doAnAction() {         //прописать свою логику поведения животных!!
-//        if (animal.eat(location)) {
-//            animal.growUp(location);
-//            animal.multiply(location);
+//        if (animal instanceof Herbivorous) {
+//            ((Herbivorous) animal).eat(location);
 //        }
+//        if (animal instanceof Carnivorous) {
+//            ((Carnivorous) animal).eat(location);
+//        }
+//        animal.eat(location);
         animal.reproduction(location);
         animal.move(location);
         animal.weightLoss();
@@ -25,6 +28,6 @@ public class Task {
 
 //        animal.starve(location);
         animal.timeToDie(location);
-        location.grassGrowth();         //сделать отдельную таску!!
+        location.grassGrowth();         //сделать отдельную таску потому что после каждого хода животного??
     }
 }

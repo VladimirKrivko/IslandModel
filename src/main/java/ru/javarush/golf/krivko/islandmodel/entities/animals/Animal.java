@@ -8,12 +8,16 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal implements Movable, Cloneable {
     protected Class<? extends Animal> clazz;
+    protected double weight;
+
+    protected boolean sex; // если true, то самец!
+    public boolean isAte = false; //?
+
+
 
     public double getWeight() {
         return weight;
     }
-
-    protected double weight;
 
     public void weightLoss() {
         this.weight -= this.weight/10;
@@ -28,13 +32,38 @@ public abstract class Animal implements Movable, Cloneable {
     public void reproduction(Location location) {
         //this получает список животных
         Set<Animal> animals = location.getAnimals().get(clazz);
-        //если есть любое другое животное своего типа, то
-        if (this.weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
-            Animal clone = this.clone();
-            location.addAnimalToLocation(clone);
-            //потеря веса после спаривания ?
+        //TODO: сделать разные полы животных!
+        boolean femalePresent = animals.stream().anyMatch(o -> !o.sex);
+        if (sex && femalePresent && weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
+//            if (this.weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
+                Animal clone = this.clone();
+                location.addAnimalToLocation(clone);
+                //потеря веса после спаривания ? пол?
+//            }
         }
     }
+
+//    public void eat(Location location) {        //не работает!
+//        Map<Class<?>, Integer> probabilityVictimsMap = Configuration.PROBABILITY_FOR_EATERS.get(this.clazz);
+//        Iterator<Map.Entry<Class<?>, Integer>> probabilityVictimsMapIterator = probabilityVictimsMap.entrySet().iterator();
+//        while(!this.isAte || probabilityVictimsMapIterator.hasNext()) {
+//            Map.Entry<Class<?>, Integer> probabilityForEater = probabilityVictimsMapIterator.next();
+//            Class<?> victimClass = probabilityForEater.getKey();
+//            Integer probabilityToEat = probabilityForEater.getValue();
+//            Set<Animal> victims = location.getAnimals().get(victimClass);
+//            if(ThreadLocalRandom.current().nextDouble(0, 100) <= probabilityToEat && victims!=null && !victims.isEmpty()) {
+//                Iterator<Animal> victimsIterator = victims.iterator();
+//                if (victimsIterator.hasNext()) {
+//                    Animal victim = victims.stream().findFirst().get();
+//                    this.weight = Math.min(this.weight + (victim.weight / 1.5), Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+//                    victimsIterator.remove();
+//                    // после того как животное поест this.didTheAnimalEat = true;
+//                    this.isAte = true;
+//                }
+//            }
+//        }
+//        this.isAte = false;
+//    }
 
     @Override
     public void move(Location location){
