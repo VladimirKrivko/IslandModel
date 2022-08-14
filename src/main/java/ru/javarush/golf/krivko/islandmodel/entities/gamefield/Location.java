@@ -15,7 +15,7 @@ public class Location {
     private final int yPosition;
     private double grass;
     private final List<Location> neighboringLocations = new ArrayList<>();
-    private final Map<Class, Set<Animal>> animals = new ConcurrentHashMap<>();
+    private final Map<Class<? extends Animal>, Set<Animal>> animals = new ConcurrentHashMap<>();
     private final Lock lock = new ReentrantLock(true);
     public Lock getLock() {
         return lock;
@@ -33,10 +33,7 @@ public class Location {
 
     public void addAnimalToLocation(Animal animal) { // добавил проверку на нуль
         //реализация добавления животного
-        if (animals.get(animal.getClass()) != null) {
-            animals.get(animal.getClass()).add(animal);
-        } else {
-            animals.put(animal.getClass(), new HashSet<>());
+        if (isThereEnoughSpace(animal.getClass())) {
             animals.get(animal.getClass()).add(animal);
         }
     }
@@ -48,7 +45,7 @@ public class Location {
                 + ":\uD83C\uDF3F" + String.format("%.2f", grass) + "]";
     }
 
-    public Map<Class, Set<Animal>> getAnimals() {
+    public Map<Class<? extends Animal>, Set<Animal>> getAnimals() {
         return animals;
     }
 
@@ -72,13 +69,15 @@ public class Location {
         return yPosition;
     }
 
-    public boolean isThereEnoughSpace(Class animalClass) {
+    public boolean isThereEnoughSpace(Class<? extends Animal> animalClass) {
         return animals.get(animalClass).size() < Configuration.CONFIGURATIONS_ANIMALS.get(animalClass)[1];
     }
 
-    private void grassGrowth() {                                     //растет трава
-        if (this.grass < Configuration.GRASS_WEIGHT) {
-            this.grass += 0.1;
+    public synchronized void grassGrowth() {                                     //растет трава
+        if (this.grass + 0.5 < Configuration.GRASS_WEIGHT) {
+            this.grass += 0.5;
+        } else {
+            this.grass = Configuration.GRASS_WEIGHT;
         }
     }
 }

@@ -14,7 +14,7 @@ public class Configuration {
     public static final int SIZE_X_GAME_FIELD = 10;
 
     public static final double GRASS_WEIGHT = 200; // Если делать без создания объектов травы, то double!
-    //    public static final int MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
+    public static final double MAX_NUMBER_OF_PLANTS_PER_LOCATION = 200;
 
     private Configuration(){
         throw new IllegalStateException("Configuration class");

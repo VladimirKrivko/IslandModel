@@ -17,6 +17,7 @@ public class Task {
 //            animal.growUp(location);
 //            animal.multiply(location);
 //        }
+        animal.reproduction(location);
         animal.move(location);
         animal.weightLoss();
 //        animal.growUp(location);
@@ -24,5 +25,6 @@ public class Task {
 
 //        animal.starve(location);
         animal.timeToDie(location);
+        location.grassGrowth();         //сделать отдельную таску!!
     }
 }

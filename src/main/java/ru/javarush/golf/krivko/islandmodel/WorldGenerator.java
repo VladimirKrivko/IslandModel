@@ -64,7 +64,7 @@ public class WorldGenerator {
 
     private void generationAnimals(Location location) {
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
-            if (isCreateAnimalType()) {
+            if (isCreateEntityType()) {
                 int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, (int) Configuration.CONFIGURATIONS_ANIMALS.get(classAnimal)[1]);
                 for (int i = 0; i < numberOfAnimalType; i++) {
                     Animal animal = (Animal) tryCreateAnimal(classAnimal);
@@ -75,7 +75,7 @@ public class WorldGenerator {
     }
 
     private void generationPlants(Location location) {
-        if (isCreateAnimalType()) {
+        if (isCreateEntityType()) {
             location.setGrass(ThreadLocalRandom.current().nextInt(0, (int) Configuration.GRASS_WEIGHT));
         }
     }
@@ -95,13 +95,13 @@ public class WorldGenerator {
     }
 
     private void initializeAnimalSet(Location location) {
-        for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
-            Set set = Collections.newSetFromMap(new ConcurrentHashMap<>());
+        for (Class classAnimal : Configuration.CLASS_ANIMALS) {
+            Set<Animal> set = Collections.newSetFromMap(new ConcurrentHashMap<>());
             location.getAnimals().put(classAnimal, set);
         }
     }
 
-    private boolean isCreateAnimalType() {
+    private boolean isCreateEntityType() {
         return ThreadLocalRandom.current().nextBoolean();
     }
 

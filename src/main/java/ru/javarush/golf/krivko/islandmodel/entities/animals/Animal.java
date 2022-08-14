@@ -3,20 +3,17 @@ package ru.javarush.golf.krivko.islandmodel.entities.animals;
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class Animal implements Movable {
+public abstract class Animal implements Movable, Cloneable {
     protected Class<? extends Animal> clazz;
 
-    protected double weight;
+    public double getWeight() {
+        return weight;
+    }
 
-//    public double getWeight() {
-//        return weight;
-//    }
-//
-//    public void setWeight(double weight) {
-//        this.weight = weight;
-//    }
+    protected double weight;
 
     public void weightLoss() {
         this.weight -= this.weight/10;
@@ -28,29 +25,47 @@ public abstract class Animal implements Movable {
         }
     }
 
+    public void reproduction(Location location) {
+        //this получает список животных
+        Set<Animal> animals = location.getAnimals().get(clazz);
+        //если есть любое другое животное своего типа, то
+        if (this.weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
+            Animal clone = this.clone();
+            location.addAnimalToLocation(clone);
+            //потеря веса после спаривания ?
+        }
+    }
+
     @Override
     public void move(Location location){
         Location newLocation = choiceOfAvailableLocation(location);
-        // добавить проверку есть ли место в новой локации для животного this
         if (newLocation.isThereEnoughSpace(this.clazz)) {
             location.removeAnimalFromLocation(this);
             newLocation.addAnimalToLocation(this);
         }
-
-        this.weight -= 0.1;       // животное теряет массу при ходьбе. -1 вынести в Configuration. для каждого животного своя потеря веса!
     }
 
-    private int getMaxNumberOfStepsAnimal() {    //Убрать метод, оставить просто Configuration?
+    private int getMaxNumberOfStepsAnimal() {
         return (int) Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[2];
     }
 
     private Location choiceOfAvailableLocation(Location location){
         int steps = getMaxNumberOfStepsAnimal();
-//        Location destinationLocation = location;
         for(int i = steps; i >= 0; i--) {
             location = location.getNeighboringLocations().get(ThreadLocalRandom.current().nextInt(0, location.getNeighboringLocations().size()));
         }
         return location;
     }
 
+    @Override
+    public Animal clone() {
+        try {
+            Animal clone = (Animal) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            clone.weight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }
