@@ -22,12 +22,12 @@ public class Task {
         animal.eat(location);
         animal.reproduction(location);
         animal.move(location);
-        animal.weightLoss();
+//        animal.weightLoss();
 //        animal.growUp(location);
 //        animal.multiply(location);
 
 //        animal.starve(location);
-        animal.timeToDie(location);
+//        animal.timeToDie(location);
         location.grassGrowth();         //сделать отдельную таску потому что после каждого хода животного??
     }
 }

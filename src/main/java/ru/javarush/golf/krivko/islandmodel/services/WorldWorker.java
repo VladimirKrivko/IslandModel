@@ -10,20 +10,20 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class WorldWorker extends Thread{
-    private final WorldGenerator worldGenerator;
+    private final WorldGenerator world;
 
     //
-    private final long lifeCycleDuration = 500;
+    private final long lifeCycleDuration = 100;
     private final Boolean stopOnTimeout = true;
-    private final int gameDuration = 10000;
+    private final int gameDuration = 30000;
 
-    public WorldWorker(WorldGenerator worldGenerator) {
-        this.worldGenerator = worldGenerator;
+    public WorldWorker(WorldGenerator world) {
+        this.world = world;
     }
 
     @Override
     public void run() {
-        worldGenerator.getGameField().print();//+
+        world.getGameField().print();//+
         //
         ScheduledExecutorService gameScheduledThreadPool = Executors.newScheduledThreadPool(4);
         gameScheduledThreadPool.scheduleWithFixedDelay(this::runAndWaitAnimalWorkers, lifeCycleDuration, lifeCycleDuration, TimeUnit.MILLISECONDS);
@@ -34,7 +34,7 @@ public class WorldWorker extends Thread{
     private void runAndWaitAnimalWorkers() {
         ArrayList<AnimalWorker> animalWorkers = new ArrayList<>();
         for (Class animalClass : Configuration.CLASS_ANIMALS) {
-            animalWorkers.add(new AnimalWorker(animalClass, worldGenerator.getGameField()));
+            animalWorkers.add(new AnimalWorker(animalClass, world.getGameField()));
         }
         //
         int CORE_POOL_SIZE = 4;
@@ -46,7 +46,7 @@ public class WorldWorker extends Thread{
 
         try {
             if (fixedThreadPool.awaitTermination(Integer.MAX_VALUE, TimeUnit.DAYS)) {
-                worldGenerator.getGameField().print();
+                world.getGameField().print();
             }
         } catch (InterruptedException e) {
             //

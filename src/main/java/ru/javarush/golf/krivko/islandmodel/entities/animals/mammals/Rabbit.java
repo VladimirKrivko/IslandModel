@@ -18,9 +18,14 @@ public class Rabbit extends Animal implements Herbivorous {
 
     @Override
     public void eat(Location location) {
-        if (location.getGrass() > 0.45) {      // Вынести количество съедаемой пищи в константу конфигуратора
-            location.setGrass(location.getGrass() - 0.45);
-            this.weight = Math.min(this.getWeight() + 0.45, Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0]);
+        location.getLock().lock();
+        try {
+            if (location.getGrass() > 0.45) {      // Вынести количество съедаемой пищи в константу конфигуратора
+                location.setGrass(location.getGrass() - 0.45);
+                this.weight = Math.min(this.getWeight() + 0.45, Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0]);
+            }
+        } finally {
+            location.getLock().unlock();
         }
     }
 }
