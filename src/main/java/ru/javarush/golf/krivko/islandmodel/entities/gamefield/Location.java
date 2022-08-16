@@ -2,6 +2,8 @@ package ru.javarush.golf.krivko.islandmodel.entities.gamefield;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.insects.Caterpillar;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Boar;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Rabbit;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Sheep;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
@@ -42,6 +44,8 @@ public class Location {
         return "[" + "\uD83D\uDC3A" + animals.get(Wolf.class).size()
                 + ":\uD83D\uDC11" + animals.get(Sheep.class).size()
                 + ":\uD83D\uDC07" + animals.get(Rabbit.class).size()
+                + ":\uD83D\uDC17" + animals.get(Boar.class).size()
+                + ":\uD83D\uDC1B" + animals.get(Caterpillar.class).size()
                 + ":\uD83C\uDF3F" + String.format("%.2f", grass) + "]";
     }
 

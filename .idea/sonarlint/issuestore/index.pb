@@ -1,9 +1,5 @@
 
 ƒ
-Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Boa.java,5\5\554933d2e80b2d1f8c06be7bdb1ddb86e4694888
-„
-Tsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Bear.java,e\6\e641d261cb1ceb371f462564e5fcab9b6a62ef57
-ƒ
 Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Eagle.java,1\c\1cba2738b7832acde469ca32742cc18f73910eb2
 ‚
 Rsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Duck.java,4\1\416160b5983967ca473f22433dc856e83ea7f0d0

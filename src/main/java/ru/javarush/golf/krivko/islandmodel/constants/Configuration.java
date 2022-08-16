@@ -13,7 +13,7 @@ public class Configuration {
     public static final int SIZE_Y_GAME_FIELD = 5;
     public static final int SIZE_X_GAME_FIELD = 10;
 
-    public static final double AMOUNT_OF_GRASS = 200; // Если делать без создания объектов травы, то double!
+    public static final double AMOUNT_OF_GRASS = 200;//200 // Если делать без создания объектов травы, то double!
 
 
     private Configuration(){
@@ -22,8 +22,8 @@ public class Configuration {
 
     /*Для изображения животных можно использовать юникод символы: 🐃, 🐻, 🐎, 🦌, 🐗, 🐑, 🐐, 🐺, 🐍, 🦊, 🦅, 🐇, 🦆, 🐁, 🐛, 🌿 */
 
-    public static final Set<Class<?>> CLASS_ANIMALS = Set.of(/*Bear.class, Boa.class, Boar.class, Buffalo.class, Deer.class,
-            Fox.class, Goat.class, Horse.class, Mouse.class,*/ Rabbit.class,  Sheep.class, Wolf.class/*, Caterpillar.class,
+    public static final Set<Class<?>> CLASS_ANIMALS = Set.of(/*Bear.class, Boa.class,*/ Boar.class, /*Buffalo.class, Deer.class,
+            Fox.class, Goat.class, Horse.class, Mouse.class,*/ Rabbit.class,  Sheep.class, Wolf.class, Caterpillar.class/*,
             Duck.class, Eagle.class*/);
 
     public static final Map<Class<?>, double[]> CONFIGURATIONS_ANIMALS = new HashMap<>();

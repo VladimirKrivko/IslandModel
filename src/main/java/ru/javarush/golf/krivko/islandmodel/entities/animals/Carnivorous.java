@@ -1,30 +1,39 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
+import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
+import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public interface Carnivorous {
-//    default void eat(Location location) {
-//        Animal carnivorous = (Animal) this;
-//        Map<Class<?>, Integer> probabilityVictimsMap = Configuration.PROBABILITY_FOR_EATERS.get(carnivorous.clazz);
-//        Iterator<Map.Entry<Class<?>, Integer>> probabilityVictimsMapIterator = probabilityVictimsMap.entrySet().iterator();
-//        while(carnivorous.isAte || probabilityVictimsMapIterator.hasNext()) {
-//            Map.Entry<Class<?>, Integer> probabilityForEater = probabilityVictimsMapIterator.next();
-//            Class<?> victimClass = probabilityForEater.getKey();
-//            Integer probabilityToEat = probabilityForEater.getValue();
-//            Set<Animal> victims = location.getAnimals().get(victimClass);
-//            if(ThreadLocalRandom.current().nextDouble(0, 100) <= probabilityToEat && victims!=null && !victims.isEmpty()) {
-//                Iterator<Animal> victimsIterator = victims.iterator();
-//                if (victimsIterator.hasNext()) {
-//                    Animal victim = victims.stream().findFirst().get();
-//                    carnivorous.weight = Math.min(carnivorous.weight + (victim.weight / 1.5), Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]);
-//                    victimsIterator.remove();
-//                    // после того как животное поест this.didTheAnimalEat = true;
-//                    carnivorous.isAte = true;
-//                }
-//            }
-//        }
-//        carnivorous.isAte = false;
-//    }
-
-    void eat(Location location);
+    default void eat(Location location) {
+        location.getLock().lock();
+        Animal carnivorous = (Animal) this;
+        boolean isAte = false;
+        double satiation = Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[3];
+        try {
+            Map<Class<?>, Integer> victimsMap = Configuration.PROBABILITY_FOR_EATERS.get(carnivorous.clazz);
+            Iterator<Class<?>> iteratorVictimClasses = victimsMap.keySet().iterator();
+            while (iteratorVictimClasses.hasNext() || !isAte) {
+                Class<?> victimClass = iteratorVictimClasses.next();
+                Set<Animal> victims = location.getAnimals().get(victimClass);
+                Integer probability = victimsMap.get(victimClass);
+                if (Randomizer.getRandom(probability)) {
+                    Animal victim = victims.stream().iterator().next();
+                    double startingWeightCarnivorous = carnivorous.currentWeight;
+                    victims.remove(victim);
+//                    System.out.println(carnivorous.clazz.getSimpleName() + " ate the " + victim.getClass().getSimpleName());
+                    carnivorous.currentWeight = Math.min(carnivorous.currentWeight + victim.getCurrentWeight(), Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]);
+                    if (carnivorous.currentWeight >= startingWeightCarnivorous + satiation || carnivorous.currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]) {
+                        isAte = true;
+                    }
+                }
+            }
+        } finally {
+            location.getLock().unlock();
+        }
+    }
 }

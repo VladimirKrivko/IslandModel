@@ -1,6 +1,8 @@
 package ru.javarush.golf.krivko.islandmodel.services;
 
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
 public class AnimalTask {
@@ -13,9 +15,14 @@ public class AnimalTask {
     }
 
     public void doAnAction() {         //прописать свою логику поведения животных!!
-//        if (animal != null) {
             try {
-                animal.eat(location);
+                if(animal instanceof Carnivorous carnivorous) {
+                    carnivorous.eat(location);
+                }
+                if(animal instanceof Herbivorous herbivorous) {
+                    herbivorous.eat(location);
+                }
+//                animal.eat(location);
             } catch (Exception e) {
                 //ничего
             }
@@ -28,6 +35,5 @@ public class AnimalTask {
         } catch (Exception e) {
             //
         }
-//        }
     }
 }

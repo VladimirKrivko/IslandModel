@@ -6,12 +6,11 @@ import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class Animal implements Movable, Cloneable {
+public abstract class Animal implements Cloneable {
     protected Class<? extends Animal> clazz;
     protected double currentWeight;
 
     protected boolean sex; // если true, то самец!
-    protected boolean isAte; //?
 
 
 
@@ -22,7 +21,7 @@ public abstract class Animal implements Movable, Cloneable {
     public void weightLoss(Location location) {
         location.getLock().lock();
         try {
-            this.currentWeight -= this.currentWeight / 15;
+            this.currentWeight -= this.currentWeight / 20;
         } finally {
             location.getLock().unlock();
         }
@@ -62,7 +61,8 @@ public abstract class Animal implements Movable, Cloneable {
         }
     }
 
-    public void eat(Location location) {        //не работает!
+//    public void eat(Location location) {        //не работает!
+//        System.out.println("bbbbbbb");
 //        location.getLock().lock();
 //
 //        try {
@@ -89,10 +89,9 @@ public abstract class Animal implements Movable, Cloneable {
 //            this.isAte = false;
 //            location.getLock().unlock();
 //        }
+//
+//    }
 
-    }
-
-    @Override
     public void move(Location location){
         location.getLock().lock();
         Location newLocation = choiceOfAvailableLocation(location);
