@@ -3,6 +3,7 @@ package ru.javarush.golf.krivko.islandmodel.services;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Omnivores;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
 public class AnimalTask {
@@ -19,15 +20,16 @@ public class AnimalTask {
                 if(animal instanceof Carnivorous carnivorous) {
                     carnivorous.eat(location);
                 }
-                if(animal instanceof Herbivorous herbivorous) {
+                if (animal instanceof Herbivorous herbivorous) {
                     herbivorous.eat(location);
                 }
-//                animal.eat(location);
+                if (animal instanceof Omnivores omnivores) {
+                    omnivores.eat(location);
+                }
             } catch (Exception e) {
                 //ничего
             }
             animal.reproduction(location);
-
             animal.weightLoss(location);
             animal.timeToDie(location);
         try {

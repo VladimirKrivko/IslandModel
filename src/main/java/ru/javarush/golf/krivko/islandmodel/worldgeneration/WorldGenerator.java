@@ -1,6 +1,6 @@
-package ru.javarush.golf.krivko.islandmodel;
+package ru.javarush.golf.krivko.islandmodel.worldgeneration;
 
-import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.GameField;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;

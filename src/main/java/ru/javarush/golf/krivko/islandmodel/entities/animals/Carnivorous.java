@@ -1,6 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
-import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
@@ -24,12 +24,12 @@ public interface Carnivorous {
                 if (Randomizer.getRandom(probability)) {
                     Animal victim = victims.stream().iterator().next();
                     double startingWeightCarnivorous = carnivorous.currentWeight;
-                    victims.remove(victim);
 //                    System.out.println(carnivorous.clazz.getSimpleName() + " ate the " + victim.getClass().getSimpleName());
                     carnivorous.currentWeight = Math.min(carnivorous.currentWeight + victim.getCurrentWeight(), Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]);
                     if (carnivorous.currentWeight >= startingWeightCarnivorous + satiation || carnivorous.currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]) {
                         isAte = true;
                     }
+                    victims.remove(victim);
                 }
             }
         } finally {

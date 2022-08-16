@@ -1,6 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
-import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
 public interface Herbivorous{

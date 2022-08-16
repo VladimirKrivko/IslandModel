@@ -1,7 +1,8 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals;
 
-import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
+import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,7 +22,7 @@ public abstract class Animal implements Cloneable {
     public void weightLoss(Location location) {
         location.getLock().lock();
         try {
-            this.currentWeight -= this.currentWeight / 20;
+            currentWeight = currentWeight - currentWeight / 10;
         } finally {
             location.getLock().unlock();
         }
@@ -30,7 +31,7 @@ public abstract class Animal implements Cloneable {
     public void timeToDie(Location location) {
         location.getLock().lock();
         try {
-            if (this.currentWeight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 3) {
+            if (currentWeight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 3) {
                 location.removeAnimalFromLocation(this);
 //                System.out.println(this.clazz.getSimpleName() + " died");
             }
@@ -40,57 +41,20 @@ public abstract class Animal implements Cloneable {
     }
 
     public void reproduction(Location location) {
-        //this получает список животных
         location.getLock().lock();
         try {
             Set<Animal> animals = location.getAnimals().get(clazz);
-            //TODO: сделать разные полы животных!
             boolean femalePresent = animals.stream().anyMatch(o -> !o.sex);
-
             if (sex && femalePresent && currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] && animals.size() > 1) {
-//            if (this.weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
                 Animal clone = this.clone();
                 location.addAnimalToLocation(clone);
 //                System.out.println(clone.clazz.getSimpleName() + " reproduce");
-                //потеря веса после спаривания ? пол?
                 weightLoss(location);
-//            }
             }
         } finally {
             location.getLock().unlock();
         }
     }
-
-//    public void eat(Location location) {        //не работает!
-//        System.out.println("bbbbbbb");
-//        location.getLock().lock();
-//
-//        try {
-//            Map<Class<?>, Integer> probabilityForEaters = Configuration.PROBABILITY_FOR_EATERS.get(this.clazz);
-//            Iterator<Map.Entry<Class<?>, Integer>> probabilityForEatersIterator = probabilityForEaters.entrySet().iterator();
-//            while (!this.isAte || probabilityForEatersIterator.hasNext()) {
-//                Map.Entry<Class<?>, Integer> probabilityForEater = probabilityForEatersIterator.next();
-//                Class<?> victimClass = probabilityForEater.getKey();
-//                Integer probabilityOfBeingEaten = probabilityForEater.getValue();
-//                Set<Animal> victims = location.getAnimals().get(victimClass);
-//                if (ThreadLocalRandom.current().nextInt(0, 100) <= probabilityOfBeingEaten && victims != null && !victims.isEmpty()) {
-//                    Iterator<Animal> victimsIterator = victims.iterator();
-//                    if (victimsIterator.hasNext()) {
-//                        Animal victim = victimsIterator.next();
-//                        this.weight = Math.min(this.weight + (victim.weight / 1.5), Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
-//                        victimsIterator.remove();
-////                    location.removeAnimalFromLocation(victim);
-//                        // после того как животное поест this.didTheAnimalEat = true;
-//                        this.isAte = true;
-//                    }
-//                }
-//            }
-//        } finally {
-//            this.isAte = false;
-//            location.getLock().unlock();
-//        }
-//
-//    }
 
     public void move(Location location){
         location.getLock().lock();
@@ -122,8 +86,8 @@ public abstract class Animal implements Cloneable {
         try {
             Animal clone = (Animal) super.clone();
             // TODO: copy mutable state here, so the clone can't change the internals of the original
-            clone.currentWeight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
-            clone.sex = ThreadLocalRandom.current().nextBoolean();
+            clone.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 1.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+            clone.sex = Randomizer.getRandom();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

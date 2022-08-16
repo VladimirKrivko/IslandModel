@@ -9,11 +9,11 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class AnimalWorker implements Runnable{
-    private final Class animalClass;
+    private final Class<? extends Animal> animalClass;
     private final GameField gameField;
     private final Queue<AnimalTask> animalTasks = new ConcurrentLinkedQueue<>();
 
-    public AnimalWorker(Class animalClass, GameField gameField) {
+    public AnimalWorker(Class<? extends Animal> animalClass, GameField gameField) {
         this.animalClass = animalClass;
         this.gameField = gameField;
     }

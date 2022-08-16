@@ -1,6 +1,6 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals.mammals;
 
-import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 

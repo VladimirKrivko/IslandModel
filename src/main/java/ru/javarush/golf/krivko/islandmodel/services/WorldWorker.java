@@ -1,7 +1,7 @@
 package ru.javarush.golf.krivko.islandmodel.services;
 
-import ru.javarush.golf.krivko.islandmodel.WorldGenerator;
-import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
+import ru.javarush.golf.krivko.islandmodel.worldgeneration.WorldGenerator;
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -12,10 +12,9 @@ import java.util.concurrent.TimeUnit;
 public class WorldWorker extends Thread{
     private final WorldGenerator world;
 
-    //
-    private final long lifeCycleDuration = 200;
+    private final long lifeCycleDuration = 100;
     private final Boolean stopOnTimeout = true;
-    private final int gameDuration = 5000;
+    private final int gameDuration = 10000;
 
     public WorldWorker(WorldGenerator world) {
         this.world = world;
@@ -23,7 +22,7 @@ public class WorldWorker extends Thread{
 
     @Override
     public void run() {
-        world.getGameField().print();//+
+        world.getGameField().print();
         //
         ScheduledExecutorService gameScheduledThreadPool = Executors.newScheduledThreadPool(4);
         gameScheduledThreadPool.scheduleWithFixedDelay(this::runAndWaitAnimalWorkers, lifeCycleDuration, lifeCycleDuration, TimeUnit.MILLISECONDS);
@@ -38,7 +37,7 @@ public class WorldWorker extends Thread{
         }
         GrassWorker grassWorker = new GrassWorker(world.getGameField());
 
-        int CORE_POOL_SIZE = 4;
+        int CORE_POOL_SIZE = 8;
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(CORE_POOL_SIZE);
         for (AnimalWorker animalWorker : animalWorkers) {
             fixedThreadPool.submit(animalWorker);
@@ -53,7 +52,7 @@ public class WorldWorker extends Thread{
             }
         } catch (InterruptedException e) {
 
-            System.out.println("The game is finished");
+            System.out.println("Simulation is finished");
         }
     }
 
@@ -61,10 +60,10 @@ public class WorldWorker extends Thread{
         try {
             Thread.sleep(gameDuration);
         } catch (InterruptedException e) {
-            System.out.println("The game is already finished");
+            System.out.println("Simulation is over");
         }
         //
-        System.out.println("The game is over by timeout");
+        System.out.println("Simulation time out");
         System.exit(1);
     }
 }
