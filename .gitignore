@@ -2,6 +2,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/java/ru/javarush/golf/krivko/islandmodel/HelloApplication.java
+!**/src/main/java/ru/javarush/golf/krivko/islandmodel/HelloController.java
 
 ### IntelliJ IDEA ###
 .idea
@@ -37,5 +39,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/src/main/java/ru/javarush/golf/krivko/islandmodel/HelloApplication.java
-/src/main/java/ru/javarush/golf/krivko/islandmodel/HelloController.java
