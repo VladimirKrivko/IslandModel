@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class AnimalWorker implements Runnable{
     private final Class animalClass;
     private final GameField gameField;
-    private final Queue<Task> tasks = new ConcurrentLinkedQueue<>();
+    private final Queue<AnimalTask> animalTasks = new ConcurrentLinkedQueue<>();
 
     public AnimalWorker(Class animalClass, GameField gameField) {
         this.animalClass = animalClass;
@@ -35,14 +35,14 @@ public class AnimalWorker implements Runnable{
             location.getLock().lock();
             try {
                 for (Animal animal : animals) {
-                    tasks.add(new Task(animal, location));
+                    animalTasks.add(new AnimalTask(animal, location));
                 }
             } finally {
                 location.getLock().unlock();
             }
         }
 
-        tasks.forEach(Task::doAnAction);
-        tasks.clear();
+        animalTasks.forEach(AnimalTask::doAnAction);
+        animalTasks.clear();
     }
 }

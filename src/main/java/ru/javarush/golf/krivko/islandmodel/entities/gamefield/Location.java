@@ -15,8 +15,7 @@ public class Location {
     private double grass;
     private final List<Location> neighboringLocations = new ArrayList<>();
 
-    // возможно проблема тут?!!!
-    private final Map<Class<? extends Animal>, Set<Animal>> animals = new HashMap<>();//ConcurrentHashMap<>();
+    private final Map<Class<? extends Animal>, Set<Animal>> animals = new HashMap<>();
     private final Lock lock = new ReentrantLock(true);
     public Lock getLock() {
         return lock;
@@ -28,12 +27,10 @@ public class Location {
     }
 
     public void removeAnimalFromLocation(Animal animal) {
-        //реализация удаления животного
         animals.get(animal.getClass()).remove(animal);
     }
 
-    public void addAnimalToLocation(Animal animal) { // добавил проверку на нуль
-        //реализация добавления животного
+    public void addAnimalToLocation(Animal animal) {
         if (isThereEnoughSpace(animal.getClass())) {
             animals.get(animal.getClass()).add(animal);
         }
@@ -74,11 +71,16 @@ public class Location {
         return animals.get(animalClass).size() < Configuration.CONFIGURATIONS_ANIMALS.get(animalClass)[1];
     }
 
-    public synchronized void grassGrowth() {                                     //растет трава
-        if (this.grass + 0.05 < Configuration.GRASS_WEIGHT) {
-            this.grass += 0.05;
-        } else {
-            this.grass = Configuration.GRASS_WEIGHT;
+    public synchronized void grassGrowth() {
+        getLock().lock();
+        try {
+            if (this.grass + 5 < Configuration.AMOUNT_OF_GRASS) {
+                this.grass += 5;
+            } else {
+                this.grass = Configuration.AMOUNT_OF_GRASS;
+            }
+        }finally {
+            getLock().unlock();
         }
     }
 }

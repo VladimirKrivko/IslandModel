@@ -4,11 +4,11 @@ import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.GameField;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
+import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class WorldGenerator {
     private final GameField gameField;
@@ -64,7 +64,7 @@ public class WorldGenerator {
     private void generationAnimals(Location location) {
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
             if (isCreateEntityType()) {
-                int numberOfAnimalType = ThreadLocalRandom.current().nextInt(0, (int) Configuration.CONFIGURATIONS_ANIMALS.get(classAnimal)[1]);
+                int numberOfAnimalType = Randomizer.getRandom(0, (int) Configuration.CONFIGURATIONS_ANIMALS.get(classAnimal)[1]);
                 for (int i = 0; i < numberOfAnimalType; i++) {
                     Animal animal = (Animal) tryCreateAnimal(classAnimal);
                     location.getAnimals().get(classAnimal).add(animal);
@@ -75,7 +75,7 @@ public class WorldGenerator {
 
     private void generationPlants(Location location) {
         if (isCreateEntityType()) {
-            location.setGrass(ThreadLocalRandom.current().nextInt(0, (int) Configuration.GRASS_WEIGHT));
+            location.setGrass(Randomizer.getRandom(0, (int) Configuration.AMOUNT_OF_GRASS));
         }
     }
 
@@ -95,13 +95,13 @@ public class WorldGenerator {
 
     private void initializeAnimalSet(Location location) {
         for (Class classAnimal : Configuration.CLASS_ANIMALS) {
-            Set<Animal> set = new HashSet<>();//Collections.newSetFromMap(new ConcurrentHashMap<>());
+            Set<Animal> set = new HashSet<>();
             location.getAnimals().put(classAnimal, set);
         }
     }
 
     private boolean isCreateEntityType() {
-        return ThreadLocalRandom.current().nextBoolean();
+        return Randomizer.getRandom();
     }
 
     public GameField getGameField() {

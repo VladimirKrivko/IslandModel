@@ -2,17 +2,17 @@ package ru.javarush.golf.krivko.islandmodel.entities.animals.mammals;
 
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
-import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
+import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
-import java.util.concurrent.ThreadLocalRandom;
+public class Rabbit extends Animal {
 
-public class Rabbit extends Animal implements Herbivorous {
+    public static final double SATIATION = Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[3];
 
     public Rabbit() {
         this.clazz = Rabbit.class;
-        this.sex = ThreadLocalRandom.current().nextBoolean();
-        this.weight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0]);
+        this.sex = Randomizer.getRandom();
+        this.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0]);
         this.isAte = false;
     }
 
@@ -20,9 +20,9 @@ public class Rabbit extends Animal implements Herbivorous {
     public void eat(Location location) {
         location.getLock().lock();
         try {
-            if (location.getGrass() > 0.45) {      // Вынести количество съедаемой пищи в константу конфигуратора
-                location.setGrass(location.getGrass() - 0.45);
-                this.weight = Math.min(this.getWeight() + 0.45, Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0]);
+            if (location.getGrass() > SATIATION) {
+                location.setGrass(location.getGrass() - SATIATION);
+                this.currentWeight = Math.min(this.getCurrentWeight() + SATIATION, Configuration.CONFIGURATIONS_ANIMALS.get(Rabbit.class)[0]);
             }
         } finally {
             location.getLock().unlock();

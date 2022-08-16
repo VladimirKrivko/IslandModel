@@ -8,45 +8,55 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal implements Movable, Cloneable {
     protected Class<? extends Animal> clazz;
-    protected double weight;
+    protected double currentWeight;
 
     protected boolean sex; // если true, то самец!
     protected boolean isAte; //?
 
 
 
-    public double getWeight() {
-        return weight;
+    public double getCurrentWeight() {
+        return currentWeight;
     }
 
-    public void weightLoss() {
-        this.weight -= this.weight/5;
+    public void weightLoss(Location location) {
+        location.getLock().lock();
+        try {
+            this.currentWeight -= this.currentWeight / 15;
+        } finally {
+            location.getLock().unlock();
+        }
     }
 
     public void timeToDie(Location location) {
-        if (this.weight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5) {
-            location.removeAnimalFromLocation(this);
+        location.getLock().lock();
+        try {
+            if (this.currentWeight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 3) {
+                location.removeAnimalFromLocation(this);
+            }
+        } finally {
+            location.getLock().unlock();
         }
     }
 
     public void reproduction(Location location) {
         //this получает список животных
-        if (sex) {
-            location.getLock().lock();
-            try {
-                Set<Animal> animals = location.getAnimals().get(clazz);
-                boolean femalePresent = animals.stream().anyMatch(o -> !o.sex);
-                if (femalePresent && weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
+        location.getLock().lock();
+        try {
+            Set<Animal> animals = location.getAnimals().get(clazz);
+            //TODO: сделать разные полы животных!
+            boolean femalePresent = animals.stream().anyMatch(o -> !o.sex);
+
+            if (sex && femalePresent && currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] && animals.size() > 1) {
 //            if (this.weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
-                    Animal clone = this.clone();
-                    location.addAnimalToLocation(clone);
-                    //потеря веса после спаривания ? пол?
-                    this.weightLoss();
+                Animal clone = this.clone();
+                location.addAnimalToLocation(clone);
+                //потеря веса после спаривания ? пол?
+                weightLoss(location);
 //            }
-                }
-            } finally {
-                location.getLock().unlock();
             }
+        } finally {
+            location.getLock().unlock();
         }
     }
 
@@ -77,13 +87,13 @@ public abstract class Animal implements Movable, Cloneable {
 //            this.isAte = false;
 //            location.getLock().unlock();
 //        }
+
     }
 
     @Override
     public void move(Location location){
         location.getLock().lock();
         Location newLocation = choiceOfAvailableLocation(location);
-//        newLocation.getLock().lock();
         try {
             if (newLocation.isThereEnoughSpace(this.clazz)) {
                 newLocation.addAnimalToLocation(this);
@@ -91,7 +101,6 @@ public abstract class Animal implements Movable, Cloneable {
             }
         } finally {
             location.getLock().unlock();
-//            newLocation.getLock().unlock();
         }
     }
 
@@ -112,7 +121,7 @@ public abstract class Animal implements Movable, Cloneable {
         try {
             Animal clone = (Animal) super.clone();
             // TODO: copy mutable state here, so the clone can't change the internals of the original
-            clone.weight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+            clone.currentWeight = ThreadLocalRandom.current().nextDouble(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 2.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
             clone.sex = ThreadLocalRandom.current().nextBoolean();
             return clone;
         } catch (CloneNotSupportedException e) {

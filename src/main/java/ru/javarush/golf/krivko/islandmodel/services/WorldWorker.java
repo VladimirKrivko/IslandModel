@@ -13,9 +13,9 @@ public class WorldWorker extends Thread{
     private final WorldGenerator world;
 
     //
-    private final long lifeCycleDuration = 100;
+    private final long lifeCycleDuration = 200;
     private final Boolean stopOnTimeout = true;
-    private final int gameDuration = 30000;
+    private final int gameDuration = 5000;
 
     public WorldWorker(WorldGenerator world) {
         this.world = world;
@@ -36,12 +36,15 @@ public class WorldWorker extends Thread{
         for (Class animalClass : Configuration.CLASS_ANIMALS) {
             animalWorkers.add(new AnimalWorker(animalClass, world.getGameField()));
         }
-        //
+        GrassWorker grassWorker = new GrassWorker(world.getGameField());
+
         int CORE_POOL_SIZE = 4;
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(CORE_POOL_SIZE);
         for (AnimalWorker animalWorker : animalWorkers) {
             fixedThreadPool.submit(animalWorker);
         }
+        fixedThreadPool.submit(grassWorker);
+
         fixedThreadPool.shutdown();
 
         try {
@@ -49,7 +52,7 @@ public class WorldWorker extends Thread{
                 world.getGameField().print();
             }
         } catch (InterruptedException e) {
-            //
+
             System.out.println("The game is finished");
         }
     }
