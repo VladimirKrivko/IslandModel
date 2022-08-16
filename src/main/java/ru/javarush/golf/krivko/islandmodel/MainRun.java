@@ -4,7 +4,6 @@ import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.services.WorldWorker;
 import ru.javarush.golf.krivko.islandmodel.worldgeneration.WorldGenerator;
 
-@Deprecated
 public class MainRun {
     public static void main(String[] args) {
 
