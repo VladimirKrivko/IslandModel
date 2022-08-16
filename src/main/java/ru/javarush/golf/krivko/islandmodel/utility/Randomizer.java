@@ -16,6 +16,12 @@ public final class Randomizer {
         return ThreadLocalRandom.current().nextDouble(from, to + 1);
     }
 
+    // не уверен, что верно
+    public static boolean getRandom(int probability) {
+        int i = ThreadLocalRandom.current().nextInt(0, 100);
+        return i < probability;
+    }
+
     public static boolean getRandom() {
         return ThreadLocalRandom.current().nextBoolean();
     }

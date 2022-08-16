@@ -3,6 +3,7 @@ package ru.javarush.golf.krivko.islandmodel.entities.gamefield;
 import ru.javarush.golf.krivko.islandmodel.constants.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Rabbit;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Sheep;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
 
 import java.util.*;
@@ -39,6 +40,7 @@ public class Location {
     @Override
     public String toString() {
         return "[" + "\uD83D\uDC3A" + animals.get(Wolf.class).size()
+                + ":\uD83D\uDC11" + animals.get(Sheep.class).size()
                 + ":\uD83D\uDC07" + animals.get(Rabbit.class).size()
                 + ":\uD83C\uDF3F" + String.format("%.2f", grass) + "]";
     }

@@ -33,6 +33,7 @@ public abstract class Animal implements Movable, Cloneable {
         try {
             if (this.currentWeight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 3) {
                 location.removeAnimalFromLocation(this);
+//                System.out.println(this.clazz.getSimpleName() + " died");
             }
         } finally {
             location.getLock().unlock();
@@ -51,6 +52,7 @@ public abstract class Animal implements Movable, Cloneable {
 //            if (this.weight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0] && animals.size() > 1) {
                 Animal clone = this.clone();
                 location.addAnimalToLocation(clone);
+//                System.out.println(clone.clazz.getSimpleName() + " reproduce");
                 //потеря веса после спаривания ? пол?
                 weightLoss(location);
 //            }

@@ -6,6 +6,7 @@ import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 public class Wolf extends Animal {
@@ -22,30 +23,52 @@ public class Wolf extends Animal {
     @Override
     public void eat(Location location) {
         location.getLock().lock();
+//        boolean isAte = false;
         try {
-            Set<Animal> rabbits = location.getAnimals().get(Rabbit.class);
-            Iterator<Animal> rabbitsIterator = rabbits.iterator();
-            while (rabbitsIterator.hasNext() || !isAte) {
-                double startingWeightWolf = currentWeight;
-                Animal rabbit = rabbitsIterator.next();
-
-                currentWeight = Math.min(currentWeight + rabbit.getCurrentWeight(), Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]);
-                if (currentWeight >= startingWeightWolf + SATIATION || currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]) {
-                    isAte = true;
+            Map<Class<?>, Integer> victimsMap = Configuration.PROBABILITY_FOR_EATERS.get(this.clazz);
+            Iterator<Class<?>> iteratorVictimClasses = victimsMap.keySet().iterator();
+            while (iteratorVictimClasses.hasNext() || !isAte) {
+                Class<?> victimClass = iteratorVictimClasses.next();
+                Set<Animal> victims = location.getAnimals().get(victimClass);
+                if (!(victims == null && victims.isEmpty())) {
+                    Iterator<Animal> victimsIterator = victims.iterator();
+                    Integer probability = victimsMap.get(victimClass);
+                    while (victimsIterator.hasNext() || !isAte) {
+                        Animal victim = victimsIterator.next();
+                        if (Randomizer.getRandom(probability)) {
+                            double startingWeightWolf = currentWeight;
+                            System.out.println("the victim was eaten");
+                            victimsIterator.remove();
+                            currentWeight = Math.min(currentWeight + victim.getCurrentWeight(), Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
+                            if (currentWeight >= startingWeightWolf + SATIATION || currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]) {
+                                isAte = true;
+                            }
+                        }
+                    }
                 }
-
-//                location.removeAnimalFromLocation(rabbit);
-                rabbitsIterator.remove();
-
-//                Animal rabbit = rabbits.stream().findFirst().get();
-//                this.currentWeight = Math.min(this.currentWeight + (rabbit.getCurrentWeight() / 1.5), Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
-//                rabbits.remove(rabbit);
-//            this.isAte = false;
             }
-            this.isAte = false;
-
+            isAte = false;
         } finally {
             location.getLock().unlock();
         }
+//        location.getLock().lock();
+//        try {
+//            Set<Animal> rabbits = location.getAnimals().get(Rabbit.class);
+//            Iterator<Animal> rabbitsIterator = rabbits.iterator();
+//            while (rabbitsIterator.hasNext() || !isAte) {
+//                double startingWeightWolf = currentWeight;
+//                Animal rabbit = rabbitsIterator.next();
+//
+//                currentWeight = Math.min(currentWeight + rabbit.getCurrentWeight(), Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]);
+//                if (currentWeight >= startingWeightWolf + SATIATION || currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]) {
+//                    isAte = true;
+//                }
+//                rabbitsIterator.remove();
+//            }
+//            this.isAte = false;
+//
+//        } finally {
+//            location.getLock().unlock();
+//        }
     }
 }

@@ -20,14 +20,14 @@ public class AnimalTask {
                 //ничего
             }
             animal.reproduction(location);
-            try {
-                animal.move(location);
-            } catch (Exception e) {
-                //
-            }
+
             animal.weightLoss(location);
             animal.timeToDie(location);
-//            location.grassGrowth();         //сделать отдельную таску потому что после каждого хода животного??
+        try {
+            animal.move(location);
+        } catch (Exception e) {
+            //
+        }
 //        }
     }
 }
