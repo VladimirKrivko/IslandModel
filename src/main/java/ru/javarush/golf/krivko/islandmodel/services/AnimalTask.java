@@ -5,6 +5,7 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Omnivores;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
+import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 public class AnimalTask {
     private final Animal animal;
@@ -15,27 +16,30 @@ public class AnimalTask {
         this.location = location;
     }
 
-    public void doAnAction() {         //прописать свою логику поведения животных!!
-            try {
-                if(animal instanceof Carnivorous carnivorous) {
-                    carnivorous.eat(location);
-                }
-                if (animal instanceof Herbivorous herbivorous) {
-                    herbivorous.eat(location);
-                }
-                if (animal instanceof Omnivores omnivores) {
-                    omnivores.eat(location);
-                }
-            } catch (Exception e) {
-                //ничего
+    public void doAnAction() {
+        try {
+            if(animal instanceof Carnivorous carnivorous) {
+                carnivorous.eat(location);
             }
+            if (animal instanceof Herbivorous herbivorous) {
+                herbivorous.eat(location);
+            }
+            if (animal instanceof Omnivores omnivores) {
+                omnivores.eat(location);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        if (Randomizer.getRandom()) {
             animal.reproduction(location);
-            animal.weightLoss(location);
-            animal.timeToDie(location);
+//            System.out.println(animal.getClass().getSimpleName());
+        }
+        animal.weightLoss(location);
+        animal.timeToDie(location);
         try {
             animal.move(location);
-        } catch (Exception e) {
-            //
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

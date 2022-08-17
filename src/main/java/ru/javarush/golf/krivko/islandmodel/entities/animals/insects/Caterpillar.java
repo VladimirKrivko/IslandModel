@@ -3,6 +3,7 @@ package ru.javarush.golf.krivko.islandmodel.entities.animals.insects;
 import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
+import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 public class Caterpillar extends Animal implements Herbivorous {
@@ -12,4 +13,8 @@ public class Caterpillar extends Animal implements Herbivorous {
         this.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(Caterpillar.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Caterpillar.class)[0]);
     }
 
+    @Override
+    public void move(Location location) {
+        //do nothing
+    }
 }

@@ -7,8 +7,8 @@ import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class WorldGenerator {
     private final GameField gameField;
@@ -56,11 +56,6 @@ public class WorldGenerator {
         }
     }
 
-    //Инициализировать списки в мапе animals ???
-
-
-
-
     private void generationAnimals(Location location) {
         for (Class<?> classAnimal : Configuration.CLASS_ANIMALS) {
             if (isCreateEntityType()) {
@@ -95,7 +90,7 @@ public class WorldGenerator {
 
     private void initializeAnimalSet(Location location) {
         for (Class classAnimal : Configuration.CLASS_ANIMALS) {
-            Set<Animal> set = new HashSet<>();
+            Set<Animal> set = ConcurrentHashMap.newKeySet();//new HashSet<>(); ??
             location.getAnimals().put(classAnimal, set);
         }
     }

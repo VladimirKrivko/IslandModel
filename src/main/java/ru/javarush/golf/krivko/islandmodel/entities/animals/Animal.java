@@ -33,7 +33,6 @@ public abstract class Animal implements Cloneable {
         try {
             if (currentWeight < Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 3) {
                 location.removeAnimalFromLocation(this);
-//                System.out.println(this.clazz.getSimpleName() + " died");
             }
         } finally {
             location.getLock().unlock();
@@ -45,10 +44,9 @@ public abstract class Animal implements Cloneable {
         try {
             Set<Animal> animals = location.getAnimals().get(clazz);
             boolean femalePresent = animals.stream().anyMatch(o -> !o.sex);
-            if (sex && femalePresent && currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] && animals.size() > 1) {
+            if (sex && femalePresent && currentWeight > Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] && animals.size() > 1) {
                 Animal clone = this.clone();
                 location.addAnimalToLocation(clone);
-//                System.out.println(clone.clazz.getSimpleName() + " reproduce");
                 weightLoss(location);
             }
         } finally {

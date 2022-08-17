@@ -13,23 +13,29 @@ public interface Carnivorous {
         location.getLock().lock();
         Animal carnivorous = (Animal) this;
         boolean isAte = false;
+        double startingWeightCarnivorous = carnivorous.currentWeight;
+        double maxWeightCarnivorous = Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0];
         double satiation = Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[3];
+        double differentWeight = maxWeightCarnivorous - startingWeightCarnivorous;
         try {
             Map<Class<?>, Integer> victimsMap = Configuration.PROBABILITY_FOR_EATERS.get(carnivorous.clazz);
-            Iterator<Class<?>> iteratorVictimClasses = victimsMap.keySet().iterator();
-            while (iteratorVictimClasses.hasNext() || !isAte) {
-                Class<?> victimClass = iteratorVictimClasses.next();
-                Set<Animal> victims = location.getAnimals().get(victimClass);
-                Integer probability = victimsMap.get(victimClass);
-                if (Randomizer.getRandom(probability)) {
-                    Animal victim = victims.stream().iterator().next();
-                    double startingWeightCarnivorous = carnivorous.currentWeight;
-//                    System.out.println(carnivorous.clazz.getSimpleName() + " ate the " + victim.getClass().getSimpleName());
-                    carnivorous.currentWeight = Math.min(carnivorous.currentWeight + victim.getCurrentWeight(), Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]);
-                    if (carnivorous.currentWeight >= startingWeightCarnivorous + satiation || carnivorous.currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(carnivorous.clazz)[0]) {
-                        isAte = true;
+            if (differentWeight > 0) {
+                Iterator<Map.Entry<Class<?>, Integer>> victimsMapIterator = victimsMap.entrySet().iterator();
+                while (!isAte && victimsMapIterator.hasNext()) {
+                    Map.Entry<Class<?>, Integer> probabilityPair = victimsMapIterator.next();
+                    Class<?> classVictim = probabilityPair.getKey();
+                    Integer probability = probabilityPair.getValue();
+
+                    Set<Animal> victims = location.getAnimals().get(classVictim);
+                    Iterator<Animal> victimsIterator = victims.iterator();
+                    if (Randomizer.getRandom(probability) && !victims.isEmpty() && victimsIterator.hasNext()) {
+                        Animal victim = victimsIterator.next();
+                        carnivorous.currentWeight = Math.min(carnivorous.currentWeight + victim.getCurrentWeight(), maxWeightCarnivorous);
+                        if (carnivorous.currentWeight >= startingWeightCarnivorous + satiation || carnivorous.currentWeight == maxWeightCarnivorous) {
+                            isAte = true;
+                        }
+                        victimsIterator.remove();
                     }
-                    victims.remove(victim);
                 }
             }
         } finally {
