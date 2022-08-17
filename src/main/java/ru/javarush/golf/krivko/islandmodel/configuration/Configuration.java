@@ -12,8 +12,9 @@ import java.util.Set;
 public class Configuration {
     public static final int SIZE_Y_GAME_FIELD = 5;
     public static final int SIZE_X_GAME_FIELD = 10;
+    public static final double MAX_AMOUNT_OF_GRASS = 200;//200
 
-    public static final double AMOUNT_OF_GRASS = 200;//200
+    public static final double GRASS_GROWTH = 20;
 
 
     private Configuration(){
@@ -43,7 +44,7 @@ public class Configuration {
         CONFIGURATIONS_ANIMALS.put(Wolf.class, new double[]{50, 30, 3, 8});//
         CONFIGURATIONS_ANIMALS.put(Duck.class, new double[]{1, 200, 4, 0.15});//
         CONFIGURATIONS_ANIMALS.put(Eagle.class, new double[]{6, 20, 3, 1});//
-        CONFIGURATIONS_ANIMALS.put(Caterpillar.class, new double[]{0.01, 200, 0, 0});// {0.01, 1000, 0, 0}
+        CONFIGURATIONS_ANIMALS.put(Caterpillar.class, new double[]{0.01, 200, 0, 0.001});// {0.01, 1000, 0, 0}
     }
 
     public static final Map<Class<?>, Map<Class<?>, Integer>> PROBABILITY_FOR_EATERS = new HashMap<>();

@@ -44,7 +44,7 @@ public abstract class Animal implements Cloneable {
         try {
             Set<Animal> animals = location.getAnimals().get(clazz);
             boolean femalePresent = animals.stream().anyMatch(o -> !o.sex);
-            if (sex && femalePresent && currentWeight > Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] && animals.size() > 1) {
+            if (sex && femalePresent && currentWeight == Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] && animals.size() > 1) {
                 Animal clone = this.clone();
                 location.addAnimalToLocation(clone);
                 weightLoss(location);

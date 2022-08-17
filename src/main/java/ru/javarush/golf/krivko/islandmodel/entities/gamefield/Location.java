@@ -8,7 +8,10 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Rabbit;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Sheep;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -81,10 +84,11 @@ public class Location {
     public synchronized void grassGrowth() {
         getLock().lock();
         try {
-            if (this.grass + 5 < Configuration.AMOUNT_OF_GRASS) {
-                this.grass += 5;
+            double grassGrowth = Configuration.GRASS_GROWTH;
+            if (this.grass + grassGrowth < Configuration.MAX_AMOUNT_OF_GRASS) {
+                this.grass += grassGrowth;
             } else {
-                this.grass = Configuration.AMOUNT_OF_GRASS;
+                this.grass = Configuration.MAX_AMOUNT_OF_GRASS;
             }
         }finally {
             getLock().unlock();

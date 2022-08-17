@@ -70,7 +70,7 @@ public class WorldGenerator {
 
     private void generationPlants(Location location) {
         if (isCreateEntityType()) {
-            location.setGrass(Randomizer.getRandom(0, (int) Configuration.AMOUNT_OF_GRASS));
+            location.setGrass(Randomizer.getRandom(0, (int) Configuration.MAX_AMOUNT_OF_GRASS));
         }
     }
 

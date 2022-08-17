@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class WorldWorker extends Thread{
     private final WorldGenerator world;
 
-    private final long lifeCycleDuration = 100;
+    private final long lifeCycleDuration = 500;
     private final Boolean stopOnTimeout = true;
     private final int gameDuration = 10000;
 
