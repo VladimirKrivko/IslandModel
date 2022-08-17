@@ -5,7 +5,6 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Omnivores;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
-import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 public class AnimalTask {
     private final Animal animal;
@@ -30,10 +29,7 @@ public class AnimalTask {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        if (Randomizer.getRandom()) {
-            animal.reproduction(location);
-//            System.out.println(animal.getClass().getSimpleName());
-        }
+        animal.reproduction(location);
         animal.weightLoss(location);
         animal.timeToDie(location);
         try {

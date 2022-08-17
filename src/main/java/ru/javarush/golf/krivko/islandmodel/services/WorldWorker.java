@@ -11,9 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WorldWorker extends Thread{
     private final WorldGenerator world;
-
-    private final long lifeCycleDuration = 500;
-    private final Boolean stopOnTimeout = true;
+    private final boolean stopOnTimeout = true;
     private final int gameDuration = 10000;
 
     public WorldWorker(WorldGenerator world) {
@@ -25,6 +23,7 @@ public class WorldWorker extends Thread{
         world.getGameField().print();
         //
         ScheduledExecutorService gameScheduledThreadPool = Executors.newScheduledThreadPool(4);
+        long lifeCycleDuration = 500;
         gameScheduledThreadPool.scheduleWithFixedDelay(this::runAndWaitAnimalWorkers, lifeCycleDuration, lifeCycleDuration, TimeUnit.MILLISECONDS);
 
         if (stopOnTimeout) runTimer();
