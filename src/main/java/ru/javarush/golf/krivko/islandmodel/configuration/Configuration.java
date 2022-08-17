@@ -30,20 +30,20 @@ public class Configuration {
     public static final Map<Class<?>, double[]> CONFIGURATIONS_ANIMALS = new HashMap<>();
 
     static {
-        CONFIGURATIONS_ANIMALS.put(Bear.class, new double[]{500, 5, 2, 80});//
-        CONFIGURATIONS_ANIMALS.put(Boa.class, new double[]{15, 30, 1, 3});//
-        CONFIGURATIONS_ANIMALS.put(Boar.class, new double[]{400, 50, 2, 50});//
-        CONFIGURATIONS_ANIMALS.put(Buffalo.class, new double[]{700, 10, 3, 100});//
-        CONFIGURATIONS_ANIMALS.put(Deer.class, new double[]{300, 20, 4, 50});//
-        CONFIGURATIONS_ANIMALS.put(Fox.class, new double[]{8, 30, 2, 2});//
-        CONFIGURATIONS_ANIMALS.put(Goat.class, new double[]{60, 140, 3, 10});//
-        CONFIGURATIONS_ANIMALS.put(Horse.class, new double[]{400, 20, 4, 60});//
-        CONFIGURATIONS_ANIMALS.put(Mouse.class, new double[]{0.05, 500, 1, 0.01});//
-        CONFIGURATIONS_ANIMALS.put(Rabbit.class, new double[]{2, 150, 2, 0.45});//
-        CONFIGURATIONS_ANIMALS.put(Sheep.class, new double[]{70, 140, 3, 15});//
-        CONFIGURATIONS_ANIMALS.put(Wolf.class, new double[]{50, 30, 3, 8});//
-        CONFIGURATIONS_ANIMALS.put(Duck.class, new double[]{1, 200, 4, 0.15});//
-        CONFIGURATIONS_ANIMALS.put(Eagle.class, new double[]{6, 20, 3, 1});//
+        CONFIGURATIONS_ANIMALS.put(Bear.class, new double[]{500, 5, 2, 80});
+        CONFIGURATIONS_ANIMALS.put(Boa.class, new double[]{15, 30, 1, 3});
+        CONFIGURATIONS_ANIMALS.put(Boar.class, new double[]{400, 50, 2, 50});
+        CONFIGURATIONS_ANIMALS.put(Buffalo.class, new double[]{700, 10, 3, 100});
+        CONFIGURATIONS_ANIMALS.put(Deer.class, new double[]{300, 20, 4, 50});
+        CONFIGURATIONS_ANIMALS.put(Fox.class, new double[]{8, 30, 2, 2});
+        CONFIGURATIONS_ANIMALS.put(Goat.class, new double[]{60, 140, 3, 10});
+        CONFIGURATIONS_ANIMALS.put(Horse.class, new double[]{400, 20, 4, 60});
+        CONFIGURATIONS_ANIMALS.put(Mouse.class, new double[]{0.05, 500, 1, 0.01});
+        CONFIGURATIONS_ANIMALS.put(Rabbit.class, new double[]{2, 150, 2, 0.45});
+        CONFIGURATIONS_ANIMALS.put(Sheep.class, new double[]{70, 140, 3, 15});
+        CONFIGURATIONS_ANIMALS.put(Wolf.class, new double[]{50, 30, 3, 8});
+        CONFIGURATIONS_ANIMALS.put(Duck.class, new double[]{1, 200, 4, 0.15});
+        CONFIGURATIONS_ANIMALS.put(Eagle.class, new double[]{6, 20, 3, 1});
         CONFIGURATIONS_ANIMALS.put(Caterpillar.class, new double[]{0.01, 200, 0, 0.001});// {0.01, 1000, 0, 0}
     }
 
