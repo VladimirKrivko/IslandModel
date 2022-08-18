@@ -7,9 +7,9 @@ import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 public class Boar extends Animal implements Omnivores {
     public Boar() {
-        this.clazz = Wolf.class;
+        this.clazz = Boar.class;
         this.sex = Randomizer.getRandom();
-        this.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Wolf.class)[0]);
+        this.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(Boar.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Boar.class)[0]);
     }
 
 }

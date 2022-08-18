@@ -1,4 +1,16 @@
 package ru.javarush.golf.krivko.islandmodel.entities.animals.mammals;
 
-public class Deer {
+import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
+import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
+
+public class Deer extends Animal implements Herbivorous {
+
+    public Deer() {
+        this.clazz = Deer.class;
+        this.sex = Randomizer.getRandom();
+        this.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(Deer.class)[0] / 2, Configuration.CONFIGURATIONS_ANIMALS.get(Deer.class)[0]);
+    }
+
 }
