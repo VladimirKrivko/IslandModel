@@ -2,11 +2,10 @@ package ru.javarush.golf.krivko.islandmodel.entities.gamefield;
 
 import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.birds.Duck;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.birds.Eagle;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.insects.Caterpillar;
-import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Boar;
-import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Rabbit;
-import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Sheep;
-import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
+import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +57,20 @@ public class Location {
 
     @Override
     public String toString() {
-        return "[" + "\uD83D\uDC3A" + animals.get(Wolf.class).size()
-                + ":\uD83D\uDC11" + animals.get(Sheep.class).size()
-                + ":\uD83D\uDC07" + animals.get(Rabbit.class).size()
+        return "[" + "\uD83D\uDC3B" + animals.get(Bear.class).size()
+                + "\uD83D\uDC0D" + animals.get(Boa.class).size()
                 + ":\uD83D\uDC17" + animals.get(Boar.class).size()
+                + "\uD83D\uDC03" + animals.get(Buffalo.class).size()
+                + "\uD83E\uDD8C" + animals.get(Deer.class).size()
+                + "\uD83E\uDD8A" + animals.get(Fox.class).size()
+                + "\uD83D\uDC10" + animals.get(Goat.class).size()
+                + "\uD83D\uDC0E" + animals.get(Horse.class).size()
+                + "\uD83D\uDC01" + animals.get(Mouse.class).size()
+                + ":\uD83D\uDC07" + animals.get(Rabbit.class).size()
+                + ":\uD83D\uDC11" + animals.get(Sheep.class).size()
+                + "\uD83D\uDC3A" + animals.get(Wolf.class).size()
+                + "\uD83E\uDD86" + animals.get(Duck.class).size()
+                + "\uD83E\uDD85" + animals.get(Eagle.class).size()
                 + ":\uD83D\uDC1B" + animals.get(Caterpillar.class).size()
                 + ":\uD83C\uDF3F" + String.format("%.2f", grass) + "]";
     }
