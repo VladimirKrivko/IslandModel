@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class GrassWorker implements Runnable {
     private final GameField gameField;
     private final Queue<GrassTask> grassTasks = new ConcurrentLinkedQueue<>();
-
     public GrassWorker(GameField gameField) {
         this.gameField = gameField;
     }
@@ -23,7 +22,6 @@ public class GrassWorker implements Runnable {
             }
         }
     }
-
 
     private void createTasksForArea(Location location) {
         location.getLock().lock();

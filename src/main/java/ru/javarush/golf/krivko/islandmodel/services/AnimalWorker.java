@@ -28,7 +28,6 @@ public class AnimalWorker implements Runnable{
         }
     }
 
-
     private void createTasksForArea(Location location) {
         Set<Animal> animals = location.getAnimals().get(animalClass);
         if (animals != null) {
@@ -41,7 +40,6 @@ public class AnimalWorker implements Runnable{
                 location.getLock().unlock();
             }
         }
-
         animalTasks.forEach(AnimalTask::doAnAction);
         animalTasks.clear();
     }

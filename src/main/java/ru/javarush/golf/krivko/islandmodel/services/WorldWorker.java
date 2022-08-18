@@ -13,7 +13,6 @@ public class WorldWorker extends Thread{
     private final WorldGenerator world;
     private final boolean stopOnTimeout = true;
     private final int gameDuration = 10000;
-
     public WorldWorker(WorldGenerator world) {
         this.world = world;
     }
@@ -35,22 +34,18 @@ public class WorldWorker extends Thread{
             animalWorkers.add(new AnimalWorker(animalClass, world.getGameField()));
         }
         GrassWorker grassWorker = new GrassWorker(world.getGameField());
-
         int CORE_POOL_SIZE = 8;
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(CORE_POOL_SIZE);
         for (AnimalWorker animalWorker : animalWorkers) {
             fixedThreadPool.submit(animalWorker);
         }
         fixedThreadPool.submit(grassWorker);
-
         fixedThreadPool.shutdown();
-
         try {
             if (fixedThreadPool.awaitTermination(Integer.MAX_VALUE, TimeUnit.DAYS)) {
                 world.getGameField().print();
             }
         } catch (InterruptedException e) {
-
             System.out.println("Simulation is finished");
         }
     }
@@ -61,7 +56,6 @@ public class WorldWorker extends Thread{
         } catch (InterruptedException e) {
             System.out.println("Simulation is over");
         }
-        //
         System.out.println("Simulation time out");
         System.exit(1);
     }

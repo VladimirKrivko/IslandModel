@@ -19,6 +19,10 @@ public class WorldGenerator {
         generateLocations();
     }
 
+    public GameField getGameField() {
+        return gameField;
+    }
+
     private void initializeLocation() {
         Location[][] locations = this.gameField.getLocations();
         for (int y = 0; y < locations[y].length; y++) {
@@ -97,9 +101,5 @@ public class WorldGenerator {
 
     private boolean isCreateEntityType() {
         return Randomizer.getRandom();
-    }
-
-    public GameField getGameField() {
-        return gameField;
     }
 }

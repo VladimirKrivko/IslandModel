@@ -21,13 +21,8 @@ public class Location {
     private final int yPosition;
     private volatile double grass;
     private final List<Location> neighboringLocations = new ArrayList<>();
-
     private final Map<Class<? extends Animal>, Set<Animal>> animals = new ConcurrentHashMap<>();//new HashMap<>();
     private final Lock lock = new ReentrantLock(true);
-    public Lock getLock() {
-        return lock;
-    }
-
     public Location(int y, int x) {
         this.yPosition = y;
         this.xPosition = x;
@@ -43,6 +38,24 @@ public class Location {
         }
     }
 
+    public boolean isThereEnoughSpace(Class<? extends Animal> animalClass) {
+        return animals.get(animalClass).size() < Configuration.CONFIGURATIONS_ANIMALS.get(animalClass)[1];
+    }
+
+    public void grassGrowth() {
+        getLock().lock();
+        try {
+            double grassGrowth = Configuration.GRASS_GROWTH;
+            if (this.grass + grassGrowth < Configuration.MAX_AMOUNT_OF_GRASS) {
+                this.grass += grassGrowth;
+            } else {
+                this.grass = Configuration.MAX_AMOUNT_OF_GRASS;
+            }
+        }finally {
+            getLock().unlock();
+        }
+    }
+
     @Override
     public String toString() {
         return "[" + "\uD83D\uDC3A" + animals.get(Wolf.class).size()
@@ -51,6 +64,10 @@ public class Location {
                 + ":\uD83D\uDC17" + animals.get(Boar.class).size()
                 + ":\uD83D\uDC1B" + animals.get(Caterpillar.class).size()
                 + ":\uD83C\uDF3F" + String.format("%.2f", grass) + "]";
+    }
+
+    public Lock getLock() {
+        return lock;
     }
 
     public Map<Class<? extends Animal>, Set<Animal>> getAnimals() {
@@ -75,23 +92,5 @@ public class Location {
 
     public int getPositionY() {
         return yPosition;
-    }
-
-    public boolean isThereEnoughSpace(Class<? extends Animal> animalClass) {
-        return animals.get(animalClass).size() < Configuration.CONFIGURATIONS_ANIMALS.get(animalClass)[1];
-    }
-
-    public synchronized void grassGrowth() {
-        getLock().lock();
-        try {
-            double grassGrowth = Configuration.GRASS_GROWTH;
-            if (this.grass + grassGrowth < Configuration.MAX_AMOUNT_OF_GRASS) {
-                this.grass += grassGrowth;
-            } else {
-                this.grass = Configuration.MAX_AMOUNT_OF_GRASS;
-            }
-        }finally {
-            getLock().unlock();
-        }
     }
 }

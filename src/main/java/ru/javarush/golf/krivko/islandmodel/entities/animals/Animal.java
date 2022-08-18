@@ -8,16 +8,10 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal implements Cloneable {
+
     protected Class<? extends Animal> clazz;
     protected double currentWeight;
-
     protected boolean sex; // если true, то самец!
-
-
-
-    public double getCurrentWeight() {
-        return currentWeight;
-    }
 
     public void weightLoss(Location location) {
         location.getLock().lock();
@@ -67,6 +61,10 @@ public abstract class Animal implements Cloneable {
         }
     }
 
+    public double getCurrentWeight() {
+        return currentWeight;
+    }
+
     private int getMaxNumberOfStepsAnimal() {
         return (int) Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[2];
     }
@@ -83,7 +81,6 @@ public abstract class Animal implements Cloneable {
     public Animal clone() {
         try {
             Animal clone = (Animal) super.clone();
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
             clone.currentWeight = Randomizer.getRandom(Configuration.CONFIGURATIONS_ANIMALS.get(clazz)[0] / 1.5, Configuration.CONFIGURATIONS_ANIMALS.get(this.clazz)[0]);
             clone.sex = Randomizer.getRandom();
             return clone;

@@ -10,5 +10,6 @@ public class MainRun {
         WorldGenerator worldGenerator = new WorldGenerator(Configuration.SIZE_Y_GAME_FIELD, Configuration.SIZE_X_GAME_FIELD);
         WorldWorker worldWorker = new WorldWorker(worldGenerator);
         worldWorker.start();
+
     }
 }

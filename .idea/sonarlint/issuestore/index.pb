@@ -5,12 +5,6 @@ Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Eagle.
 Rsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/birds/Duck.java,4\1\416160b5983967ca473f22433dc856e83ea7f0d0
 |
 Lsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/plants/Plant.java,a\2\a261c4d9080b28b10cdb3a2482e160e5b1e1b704
-|
-Lsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/plants/Grass.java,e\4\e4f92675186b1214fa208ac2c07f4da825f64818
-y
-Isrc/main/java/ru/javarush/golf/krivko/islandmodel/services/GrassTask.java,2\e\2ef076677709e34952a255297c6bc7b8d72ee2bb
-{
-Ksrc/main/java/ru/javarush/golf/krivko/islandmodel/services/GrassWorker.java,4\2\425a41db37a0c743f1d36f1008eeafe9e862624b
 u
 Esrc/main/java/ru/javarush/golf/krivko/islandmodel/WorldGenerator.java,e\5\e5cc4abf6cec2058702ed3d5f17a610931a9d4f7
 „
@@ -31,7 +25,5 @@ Usrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Hors
 Usrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Mouse.java,3\b\3b7280d3085e9848fef627362514bf3b92cc145b
 …
 Usrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Sheep.java,6\0\60db49534dfe2027d4fae3967ab71d13e93886ea
-ƒ
-Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/gamefield/GameField.java,c\8\c808015be469c83d5c480540742d9cf721ef2f07
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec

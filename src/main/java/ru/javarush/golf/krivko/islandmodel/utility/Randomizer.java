@@ -3,7 +3,6 @@ package ru.javarush.golf.krivko.islandmodel.utility;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Randomizer {
-
     private Randomizer() {
         throw new IllegalStateException("Utility class");
     }
@@ -24,5 +23,4 @@ public final class Randomizer {
     public static boolean getRandom() {
         return ThreadLocalRandom.current().nextBoolean();
     }
-
 }
