@@ -6,12 +6,20 @@ import ru.javarush.golf.krivko.islandmodel.utility.Randomizer;
 
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class Animal implements Cloneable {
 
     protected Class<? extends Animal> clazz;
     protected double currentWeight;
     protected boolean sex; // если true, то самец!
+
+    public Lock getLock() {
+        return lock;
+    }
+
+    private final Lock lock = new ReentrantLock(true);
 
     public void weightLoss(Location location) {
         location.getLock().lock();

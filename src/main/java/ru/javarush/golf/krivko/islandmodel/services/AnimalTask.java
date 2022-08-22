@@ -16,6 +16,7 @@ public class AnimalTask {
     }
 
     public void doAnAction() {
+        animal.getLock().lock();
         try {
             if(animal instanceof Carnivorous carnivorous) {
                 carnivorous.eat(location);
@@ -36,6 +37,8 @@ public class AnimalTask {
             animal.move(location);
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            animal.getLock().unlock();
         }
     }
 }
