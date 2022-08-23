@@ -7,8 +7,8 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Bear;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Horse;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Mouse;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
-import ru.javarush.golf.krivko.islandmodel.newservices.AnimalTask;
-import ru.javarush.golf.krivko.islandmodel.newservices.GrassTask;
+import ru.javarush.golf.krivko.islandmodel.services.AnimalTask;
+import ru.javarush.golf.krivko.islandmodel.services.GrassTask;
 
 import java.util.ArrayList;
 import java.util.List;

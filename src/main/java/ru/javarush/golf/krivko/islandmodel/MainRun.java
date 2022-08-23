@@ -1,7 +1,7 @@
 package ru.javarush.golf.krivko.islandmodel;
 
 import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
-import ru.javarush.golf.krivko.islandmodel.newservices.LifeWorker;
+import ru.javarush.golf.krivko.islandmodel.services.LifeWorker;
 import ru.javarush.golf.krivko.islandmodel.worldgeneration.WorldGenerator;
 
 public class MainRun {

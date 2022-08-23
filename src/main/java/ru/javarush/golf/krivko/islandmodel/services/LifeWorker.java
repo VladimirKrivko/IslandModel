@@ -1,4 +1,4 @@
-package ru.javarush.golf.krivko.islandmodel.newservices;
+package ru.javarush.golf.krivko.islandmodel.services;
 
 import ru.javarush.golf.krivko.islandmodel.configuration.Configuration;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
@@ -57,7 +57,6 @@ public class LifeWorker{
                         }
                     }
                 }
-                System.out.println("\nРезультат:");
                 world.getGameField().print();
             }
         }

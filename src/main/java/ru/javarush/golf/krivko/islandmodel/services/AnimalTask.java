@@ -1,4 +1,4 @@
-package ru.javarush.golf.krivko.islandmodel.newservices;
+package ru.javarush.golf.krivko.islandmodel.services;
 
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
