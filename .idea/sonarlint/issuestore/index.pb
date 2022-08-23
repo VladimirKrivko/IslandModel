@@ -22,8 +22,6 @@ Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Boa.
 Tsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Bear.java,e\6\e641d261cb1ceb371f462564e5fcab9b6a62ef57
 É
 Ssrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/mammals/Fox.java,4\d\4d93855f1b1b1bf32ffe977a99890c168af9996b
-Ç
-Rsrc/main/java/ru/javarush/golf/krivko/islandmodel/configuration/Configuration.java,b\9\b91c87c4de65c31c70b87f11854dffcf55faeeca
 Å
 Qsrc/main/java/ru/javarush/golf/krivko/islandmodel/entities/animals/Omnivores.java,b\a\ba5a4e72ed9a2e9f6403b82d62301124744a376b
 N

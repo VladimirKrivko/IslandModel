@@ -7,16 +7,23 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Bear;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Horse;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Mouse;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.mammals.Wolf;
+import ru.javarush.golf.krivko.islandmodel.newservices.AnimalTask;
+import ru.javarush.golf.krivko.islandmodel.newservices.GrassTask;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Location {
+
+    private final ExecutorService poolThread = Executors.newFixedThreadPool(8);
     private final int xPosition;
     private final int yPosition;
     private volatile double grass;
@@ -26,6 +33,29 @@ public class Location {
     public Location(int y, int x) {
         this.yPosition = y;
         this.xPosition = x;
+    }
+
+
+    public void start() {
+        lock.lock();
+        try {
+            for (Class<? extends Animal> animalClass : animals.keySet()) {
+                for (Animal animal : animals.get(animalClass)) {
+                    poolThread.submit(new AnimalTask(animal, this));
+                }
+            }
+            poolThread.submit(new GrassTask(this));
+        }finally {
+            lock.unlock();
+        }
+    }
+
+    public void await(int milliseconds) throws InterruptedException {
+        poolThread.awaitTermination(milliseconds, TimeUnit.MILLISECONDS);
+    }
+
+    public void shutdown(){
+        poolThread.shutdown();
     }
 
     public void removeAnimalFromLocation(Animal animal) {
@@ -87,6 +117,7 @@ public class Location {
     public List<Location> getNeighboringLocations() {
         return neighboringLocations;
     }
+
 
     public double getGrass() {
         return grass;

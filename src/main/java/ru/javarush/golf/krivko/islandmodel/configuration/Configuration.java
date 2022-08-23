@@ -13,9 +13,9 @@ public final class Configuration {
     public static final int SIZE_Y_GAME_FIELD = 5;
     public static final int SIZE_X_GAME_FIELD = 10;
     public static final double MAX_AMOUNT_OF_GRASS = 200;
-
     public static final double GRASS_GROWTH = 20;
-
+    public static final int STEP_DURATION = 500;
+    public static final int NUMBER_OF_SIMULATION_STEPS = 30;
 
     private Configuration(){
         throw new IllegalStateException("Configuration class");

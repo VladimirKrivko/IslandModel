@@ -1,4 +1,4 @@
-package ru.javarush.golf.krivko.islandmodel.services;
+package ru.javarush.golf.krivko.islandmodel.newservices;
 
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Animal;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Carnivorous;
@@ -6,7 +6,7 @@ import ru.javarush.golf.krivko.islandmodel.entities.animals.Herbivorous;
 import ru.javarush.golf.krivko.islandmodel.entities.animals.Omnivores;
 import ru.javarush.golf.krivko.islandmodel.entities.gamefield.Location;
 
-public class AnimalTask {
+public class AnimalTask implements Runnable{
     private final Animal animal;
     private final Location location;
 
@@ -15,7 +15,8 @@ public class AnimalTask {
         this.location = location;
     }
 
-    public void doAnAction() {
+    @Override
+    public void run() {
         animal.getLock().lock();
         try {
             if(animal instanceof Carnivorous carnivorous) {
